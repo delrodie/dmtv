@@ -1,0 +1,12 @@
+{{ form_start(form) }}
+    <div class="form-group">
+        {{ form_row(form.libelle) }}
+    </div>
+    {{ form_widget(form) }}
+    <div class="form-group mt-2 mb-0">
+        <div class="text-right">
+            <a href="{{ path('rubrique_index') }}" class="btn btn-secondary waves-effect m-l-5">Cancel</a>
+            <button class="btn btn-primary waves-effect waves-light">{{ button_label|default('Enregistrer') }}</button>
+        </div>
+    </div>
+{{ form_end(form) }}

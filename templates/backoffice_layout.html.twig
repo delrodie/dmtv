@@ -37,7 +37,9 @@
                     <div id="sidebar-menu">
                         <ul>
                             <li>
-                                <a href="#" class="waves-effect waves-light"><i class="mdi mdi-view-dashboard"></i><span> Tableau de bord </span></a>
+                                <a href="{{ path('backend_dashboard') }}" class="waves-effect waves-light">
+                                    <i class="mdi mdi-view-dashboard"></i><span> Tableau de bord </span>
+                                </a>
                             </li>
 
 
@@ -48,7 +50,7 @@
                                 <a href="javascript:void(0);" class="waves-effect waves-light"><i class="mdi mdi-table"></i><span> Gestion </span> <span class="float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                                 <ul class="list-unstyled">
                                     <li><a href="#">Articles</a></li>
-                                    <li><a href="#">Rubriques</a></li>
+                                    <li><a href="{{ path('rubrique_index') }}">Rubriques</a></li>
                                 </ul>
                             </li>
 
@@ -129,6 +131,8 @@
             <script src="{{ absolute_url(asset('backoffice/js/waves.js')) }}"></script>
             <script src="{{ absolute_url(asset('backoffice/js/jquery.nicescroll.js')) }}"></script>
             <script src="{{ absolute_url(asset('backoffice/js/jquery.scrollTo.min.js')) }}"></script>
+
+            <script src="{{ absolute_url(asset('backoffice/js/app.js')) }}"></script>
         {% endblock %}
     </body>
 </html>
