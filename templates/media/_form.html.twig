@@ -1,0 +1,24 @@
+{{ form_start(form) }}
+    <div class="form-group">
+        <div class="row">
+            <div class="col-12">
+                {{ form_row(form.article) }}
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-12">
+                {{ form_row(form.img250) }}
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-12">
+                {{ form_row(form.img1920) }}
+            </div>
+        </div>
+
+    </div>
+    {{ form_widget(form) }}
+    <div class="text-right mt-4">
+        <button class="btn btn-primary">{{ button_label|default('Enregister') }}</button>
+    </div>
+{{ form_end(form) }}

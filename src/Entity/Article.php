@@ -73,6 +73,11 @@ class Article
      */
     private $auteur;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Media", mappedBy="article", cascade={"persist", "remove"})
+     */
+    private $media;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -226,6 +231,24 @@ class Article
     public function setAuteur(?string $auteur): self
     {
         $this->auteur = $auteur;
+
+        return $this;
+    }
+
+    public function getMedia(): ?Media
+    {
+        return $this->media;
+    }
+
+    public function setMedia(?Media $media): self
+    {
+        $this->media = $media;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newArticle = null === $media ? null : $this;
+        if ($media->getArticle() !== $newArticle) {
+            $media->setArticle($newArticle);
+        }
 
         return $this;
     }

@@ -19,6 +19,14 @@ class ArticleRepository extends ServiceEntityRepository
         parent::__construct($registry, Article::class);
     }
 
+    public function getArticle($id)
+    {
+        return $this->createQueryBuilder('a')
+            ->where('a.id = :id')
+            ->setParameter('id', $id)
+            ;
+    }
+
     // /**
     //  * @return Article[] Returns an array of Article objects
     //  */

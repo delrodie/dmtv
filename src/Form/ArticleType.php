@@ -23,7 +23,7 @@ class ArticleType extends AbstractType
             ->add('description', TextareaType::class,['attr'=>['class'=>'form-control', 'placeholder'=>'La description de la video', 'rows'=>9]])
             ->add('lien', TextType::class,['attr'=>['class'=>'form-control', 'placeholder'=>"Le lien de la video", 'autocomplete'=>"off"]])
             ->add('auteur', TextType::class,['attr'=>['class'=>'form-control', 'placeholder'=>"L'auteur de la video", 'autocomplete'=>"off"]])
-            ->add('tag', TextType::class,['attr'=>['class'=>'form-control', 'placeholder'=>'Les mots clés']])
+            ->add('tag', TextType::class,['attr'=>['class'=>'form-control tags', 'placeholder'=>'Les mots clés', 'width'=>"100%"]])
             ->add('rubrique', EntityType::class,[
                 'attr'=>['class'=>'form-control custom-select rubrique-select', 'width'=>"100%"],
                 'class'=> 'App\Entity\Rubrique',

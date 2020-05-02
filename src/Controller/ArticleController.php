@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/article")
+ * @Route("/backend/article")
  */
 class ArticleController extends AbstractController
 {
@@ -69,7 +69,10 @@ class ArticleController extends AbstractController
             $entityManager->persist($article);
             $entityManager->flush();
 
-            return $this->redirectToRoute('article_index');
+            // Si le bouton IsSlide est actif alors enregistrer le media
+            if ($article->getIsSlide()) return $this->redirectToRoute('media_new',['article'=>$article->getId()]);
+            else return $this->redirectToRoute('article_index');
+
         }
 
         return $this->render('article/new.html.twig', [
@@ -118,7 +121,9 @@ class ArticleController extends AbstractController
             $article->setSlug($slug);
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('article_index');
+            // Si le bouton IsSlide est actif alors enregistrer le media
+            if ($article->getIsSlide()) return $this->redirectToRoute('media_new',['article'=>$article->getId()]);
+            else return $this->redirectToRoute('article_index');
         }
 
         return $this->render('article/edit.html.twig', [

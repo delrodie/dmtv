@@ -77,7 +77,9 @@
 {% block javascripts %}
     {{ parent() }}
     <script src="{{ asset('backoffice/plugins/select2/select2.min.js') }}"></script>
+    <script src="{{ asset('backoffice/js/bootstrap-tagsinput.min.js') }}"></script>
     <script>
         $(".rubrique-select").select2();
+        $(".tags").tagsinput();
     </script>
 {% endblock %}
