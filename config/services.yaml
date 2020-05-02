@@ -4,6 +4,7 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
+    480_directory: '%kernel.project_dir%/public/uploads/480'
 
 services:
     # default configuration for services in *this* file
@@ -31,3 +32,10 @@ services:
         public: true
         tags:
             - { name: monolog.logger,channel: app}
+
+
+    App\Utilities\GestionMedia:
+        arguments:
+            $media1920Directory: '%kernel.project_dir%/public/uploads/1920'
+            $media480Directory: '%kernel.project_dir%/public/uploads/480'
+            $media250Directory: '%kernel.project_dir%/public/uploads/250'

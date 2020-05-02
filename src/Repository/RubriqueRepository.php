@@ -19,6 +19,14 @@ class RubriqueRepository extends ServiceEntityRepository
         parent::__construct($registry, Rubrique::class);
     }
 
+    /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function liste()
+    {
+        return $this->createQueryBuilder('r')->orderBy('r.libelle', 'ASC');
+    }
+
     // /**
     //  * @return Rubrique[] Returns an array of Rubrique objects
     //  */
