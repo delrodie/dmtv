@@ -1,0 +1,29 @@
+{{ form_start(form) }}
+    <div class="form-group">
+        <div class="row mt-3">
+            <div class="col-12">
+                {{ form_row(form.username) }}
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-12">
+                {{ form_row(form.email) }}
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-12">
+                {{ form_row(form.password) }}
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-12">
+                {{ form_row(form.roles) }}
+            </div>
+        </div>
+    </div>
+    {{ form_widget(form) }}
+    <div class="mt-4 text-right">
+        <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+    </div>
+
+{{ form_end(form) }}
