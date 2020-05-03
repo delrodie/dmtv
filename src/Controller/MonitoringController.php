@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/monitoring")
+ * @Route("/admin/monitoring")
  */
 class MonitoringController extends AbstractController
 {
@@ -41,12 +41,10 @@ class MonitoringController extends AbstractController
         // sinon encoder le fichier en json puis render à la vue
         if (!$fichier) return $this->render('monitoring/index.html.twig',['fichiers'=>null]);
         else{
+            krsort($fichier);
             foreach ($fichier as $item => $value){
                 $jsons[] = json_decode($value);
             }
-
-            //dd($jsons);
-
 
             return $this->render('monitoring/index.html.twig', [
                 'fichiers' => $jsons,

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Article;
 use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
+use App\Utilities\GestionLog;
 use App\Utilities\GestionMedia;
 use Cassandra\Time;
 use Cocur\Slugify\Slugify;
@@ -20,9 +21,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class ArticleController extends AbstractController
 {
     private $gestionMedia;
-    public function __construct(GestionMedia $gestionMedia)
+    private $log;
+
+    public function __construct(GestionMedia $gestionMedia, GestionLog $log)
     {
         $this->gestionMedia = $gestionMedia;
+        $this->log = $log;
     }
 
     /**
@@ -30,8 +34,11 @@ class ArticleController extends AbstractController
      */
     public function index(ArticleRepository $articleRepository): Response
     {
+        // Enregistrement du log
+        $this->log->addLog('backendArticleListe');
+
         return $this->render('article/index.html.twig', [
-            'articles' => $articleRepository->findAll(),
+            'articles' => $articleRepository->findBy([],['id'=>'DESC']),
         ]);
     }
 
@@ -40,6 +47,7 @@ class ArticleController extends AbstractController
      */
     public function new(Request $request): Response
     {
+
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
@@ -69,11 +77,18 @@ class ArticleController extends AbstractController
             $entityManager->persist($article);
             $entityManager->flush();
 
+            // Enregistrement du log
+            $action = $article->getTitre().' de '.$article->getAuteur();
+            $this->log->addLog('backendArticleSave', $action);
+
             // Si le bouton IsSlide est actif alors enregistrer le media
             if ($article->getIsSlide()) return $this->redirectToRoute('media_new',['article'=>$article->getId()]);
             else return $this->redirectToRoute('article_index');
 
         }
+
+        // Enregistrement du log
+        $this->log->addLog('backendArticleNew');
 
         return $this->render('article/new.html.twig', [
             'article' => $article,
@@ -84,8 +99,13 @@ class ArticleController extends AbstractController
     /**
      * @Route("/{id}", name="article_show", methods={"GET"})
      */
-    public function show(Article $article): Response
+    public function show(Article $article, Request $request): Response
     {
+
+        // Enregistrement du log
+        $action = $article->getTitre().' de '.$article->getAuteur();
+        $this->log->addLog('backendArticleShow', $action);
+
         return $this->render('article/show.html.twig', [
             'article' => $article,
         ]);
@@ -121,10 +141,18 @@ class ArticleController extends AbstractController
             $article->setSlug($slug);
             $this->getDoctrine()->getManager()->flush();
 
+            // Enregistrement du log
+            $action = $article->getTitre().' de '.$article->getAuteur();
+            $this->log->addLog('backendArticleUpdate', $action);
+
             // Si le bouton IsSlide est actif alors enregistrer le media
             if ($article->getIsSlide()) return $this->redirectToRoute('media_new',['article'=>$article->getId()]);
             else return $this->redirectToRoute('article_index');
         }
+
+        // Enregistrement du log
+        $action = $article->getTitre().' de '.$article->getAuteur();
+        $this->log->addLog('backendArticleEdit', $action);
 
         return $this->render('article/edit.html.twig', [
             'article' => $article,
@@ -139,8 +167,12 @@ class ArticleController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
+            $action = $article->getTitre().' de '.$article->getAuteur();
             $entityManager->remove($article);
             $entityManager->flush();
+
+            // Enregistrement du log
+            $this->log->addLog('backendArticleDelete', $action);
         }
 
         return $this->redirectToRoute('article_index');

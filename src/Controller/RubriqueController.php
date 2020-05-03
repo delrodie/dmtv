@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Rubrique;
 use App\Form\RubriqueType;
 use App\Repository\RubriqueRepository;
+use App\Utilities\GestionLog;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,6 +16,13 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class RubriqueController extends AbstractController
 {
+    private $log;
+
+    public function __construct(GestionLog $log)
+    {
+        $this->log = $log;
+    }
+
     /**
      * @Route("/", name="rubrique_index", methods={"GET","POST"})
      */
@@ -29,8 +37,14 @@ class RubriqueController extends AbstractController
             $entityManager->persist($rubrique);
             $entityManager->flush();
 
+            // Enregistrement du log
+            $action =  $rubrique->getLibelle();
+            $this->log->addLog('backendRubriqueSave', $action);
+
             return $this->redirectToRoute('rubrique_index');
         }
+        // Enregistrement du log
+        $this->log->addLog('backendRubriqueListe');
 
         return $this->render('rubrique/index.html.twig', [
             'rubriques' => $rubriqueRepository->findAll(),
@@ -83,8 +97,14 @@ class RubriqueController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
+            // Enregistrement du log
+            $action =  $rubrique->getLibelle();
+            $this->log->addLog('backendRubriqueUpdate', $action);
+
             return $this->redirectToRoute('rubrique_index');
         }
+        // Enregistrement du log
+        $this->log->addLog('backendRubriqueEdit');
 
         return $this->render('rubrique/edit.html.twig', [
             'rubriques' => $rubriqueRepository->findAll(),

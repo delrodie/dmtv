@@ -35,7 +35,7 @@
                                                 <div class="card m-b-30">
                                                     <img class="card-img-top img-fluid" src="{{ absolute_url(asset('uploads/250/' ~ medium.img250)) }}" alt="{{ medium.article.titre }}">
                                                     <div class="card-body">
-                                                        <h5 class="card-title"><a href="{{ path('article_show', {'id': medium.article.id}) }}">{{ medium.article.auteur }}</a></h5>
+                                                        <h5 class="card-title"><a href="{{ path('media_edit', {'id': medium.id}) }}">{{ medium.article.auteur }}</a></h5>
                                                     </div>
                                                 </div>
                                             </div>

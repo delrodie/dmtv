@@ -34,8 +34,8 @@ class AccueilController extends AbstractController
      */
     public function dashboard(Request $request)
     {
-        $user = $this->getUser();
-        $this->log->addLog($user, 'dashboard', $request->getClientIp());
+        //$user = $this->getUser();
+        $this->log->addLog('dashboard');
         return $this->render("accueil/index.html.twig");
     }
 }
