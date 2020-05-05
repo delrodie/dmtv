@@ -1,20 +1,61 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello VideoController!{% endblock %}
+{% block title %}Liste des vidéos{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <section class="video-details">
+        <div class="text-center video-logo">
+            <img src="{{ absolute_url(asset('assets/images/logo-tv.png')) }}" alt="Logo Dream Maker TV" >
+        </div>
+        <div class="container bg-similaires">
+            <div class="row pt-60">
+                <div class="col-12">
+                    <h2>Videothèque</h2>
+                </div>
+                {% for article in articles%}
+                    <div class="col-6 col-sm-6 col-md-4">
+                        <div class="video-net-box">
+                            <img src="{{ absolute_url(asset('uploads/480/'~ article.img480)) }}" alt="" class="img-fluid">
+                            <div class="video-net-content">
+                                <span class="post">{{ article.titre }}</span>
+                                <ul class="video-player-icon">
+                                    <li><a href="{{ path('video_show', {'slug': article.slug}) }}"><i class="fa fa-play-circle"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="row">
+                <div class="col-12 text-center">
+                    {{ knp_pagination_render(articles) }}
+                </div>
+            </div>
+        </div>
+    </section>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/delrodie/www/backoffice/dreammaker/webtv/src/Controller/VideoController.php'|file_link(0) }}">src/Controller/VideoController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/delrodie/www/backoffice/dreammaker/webtv/templates/video/index.html.twig'|file_link(0) }}">templates/video/index.html.twig</a></code></li>
-    </ul>
-</div>
+
+{% endblock %}
+
+{% block bgimage %}
+    style="background: url('#') no-repeat center fixed"
+{% endblock %}
+
+{% block navbar %}
+    {{ include('accueil/menu.html.twig') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v6.0"></script>
+    <script>
+        $(function () {
+
+            $('.navbar-toggler').on('click', function(event) {
+                event.preventDefault();
+                $(this).closest('.navbar-video').toggleClass('open');
+            })
+        });
+    </script>
 {% endblock %}

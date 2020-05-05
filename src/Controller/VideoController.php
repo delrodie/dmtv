@@ -9,6 +9,9 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Stopwatch\Stopwatch;
+use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Contracts\Cache\ItemInterface;
 
 /**
  * @Route("/video")
@@ -18,21 +21,35 @@ class VideoController extends AbstractController
     private $articleRepository;
     private $rubriqueRepository;
     private $paginator;
+    private $cache;
 
-    public function __construct(ArticleRepository $articleRepository, RubriqueRepository $rubriqueRepository, PaginatorInterface $paginator)
+    public function __construct(ArticleRepository $articleRepository, RubriqueRepository $rubriqueRepository, PaginatorInterface $paginator, CacheInterface $cache)
     {
         $this->articleRepository = $articleRepository;
         $this->rubriqueRepository = $rubriqueRepository;
         $this->paginator = $paginator;
+        $this->cache = $cache;
     }
 
     /**
      * @Route("/", name="video_index")
      */
-    public function index()
+    public function index(Request $request)
     {
+        // Mise en cache de la liste des videos
+        $articlesCache = $this->cache->get('articles_liste', function (ItemInterface $item){
+            $item->expiresAfter(86400);
+            return $this->articleRepository->findBy(['isValid'=>true],['id'=>'DESC']);
+        });
+
+        // Pagination
+        $articles = $this->paginator->paginate(
+            $articlesCache,
+            $request->query->getInt('page', 1), 12
+        );
+
         return $this->render('video/index.html.twig', [
-            'controller_name' => 'VideoController',
+            'articles' => $articles,
         ]);
     }
 
@@ -41,13 +58,20 @@ class VideoController extends AbstractController
      */
     public function show(Article $article)
     {
-        $rubriques = $this->rubriqueRepository->findByArticle($article->getId());
+
         //$similaires = [];
-        foreach ($rubriques as $key => $rubrique){
-            $id = $rubrique->getId();
-            $similaires[] = $this->articleRepository->findByRubriques($id, $article->getId());
-        }
-        //dd($similaires);
+
+        // Mise en cache des articles similaires
+        $similaires = $this->cache->get($article->getSlug(),function (ItemInterface $item) use ($article) {
+            $item->expiresAfter(86400); // Expire après 24h
+            $rubriques = $this->rubriqueRepository->findByArticle($article->getId());
+            foreach ($rubriques as $key => $rubrique){
+                $id = $rubrique->getId();
+                $similaires[] = $this->articleRepository->findByRubriques($id, $article->getId());
+            }
+
+            return $similaires;
+        });
         return $this->render("video/show.html.twig",[
             'article' => $article,
             'similaires' => $similaires
@@ -59,8 +83,15 @@ class VideoController extends AbstractController
      */
     public function rubrique($rubrique, Request $request)
     {
+        // Mise en cache de la liste des rubriques
+        $articleListe = $this->cache->get($rubrique,function (ItemInterface $item) use ($rubrique) {
+            $item->expiresAfter(86400); // Expires après 24h
+            return $this->articleRepository->findListByRubrique($rubrique);
+        } );
+
+        // Pagination du resultat
         $articles = $this->paginator->paginate(
-            $this->articleRepository->findListByRubrique($rubrique),
+            $articleListe,
             $request->query->getInt('page', 1), 9
         );
 

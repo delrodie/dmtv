@@ -8,16 +8,20 @@ use App\Utilities\GestionMail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Contracts\Cache\ItemInterface;
 
 class AccueilController extends AbstractController
 {
     private $gestMail;
     private $log;
+    private $cache;
 
-    public function __construct(GestionMail $gestionMail, GestionLog $log)
+    public function __construct(GestionMail $gestionMail, GestionLog $log, CacheInterface $cache)
     {
         $this->gestMail= $gestionMail;
         $this->log = $log;
+        $this->cache = $cache;
     }
 
     /**
@@ -25,10 +29,20 @@ class AccueilController extends AbstractController
      */
     public function index(ArticleRepository $articleRepository)
     {
-        //dd($articleRepository->findCarousel());
+        // Mise en cache du carousel
+        $carousels = $this->cache->get('carousel', function (ItemInterface $item) use ($articleRepository) {
+            $item->expiresAfter(86400);
+            return $articleRepository->findCarousel();
+        });
+
+        // Mise en cache des videos
+        $articles = $this->cache->get('home_articles', function (ItemInterface $item) use ($articleRepository) {
+            $item->expiresAfter(86400);
+            return $articleRepository->findBy(['isValid'=>true, 'IsSlide'=>false],['id'=>'DESC']);
+        });
         return $this->render('accueil/index.html.twig', [
-            'carousels' => $articleRepository->findCarousel(),
-            'articles' => $articleRepository->findBy(['isValid'=>true, 'IsSlide'=>false],['id'=>'DESC']),
+            'carousels' => $carousels,
+            'articles' => $articles,
             'divers' => $articleRepository->findListByRubrique('divers')
         ]);
     }
