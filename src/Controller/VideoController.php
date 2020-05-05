@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Entity\Article;
 use App\Repository\ArticleRepository;
 use App\Repository\RubriqueRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -15,11 +17,13 @@ class VideoController extends AbstractController
 {
     private $articleRepository;
     private $rubriqueRepository;
+    private $paginator;
 
-    public function __construct(ArticleRepository $articleRepository, RubriqueRepository $rubriqueRepository)
+    public function __construct(ArticleRepository $articleRepository, RubriqueRepository $rubriqueRepository, PaginatorInterface $paginator)
     {
         $this->articleRepository = $articleRepository;
         $this->rubriqueRepository = $rubriqueRepository;
+        $this->paginator = $paginator;
     }
 
     /**
@@ -53,12 +57,15 @@ class VideoController extends AbstractController
     /**
      * @Route("/rubrique/{rubrique}/", name="video_rubriques")
      */
-    public function rubrique($rubrique)
+    public function rubrique($rubrique, Request $request)
     {
-        //$rubriqueEntity = $this->rubriqueRepository->findByLibelle($rubrique);
+        $articles = $this->paginator->paginate(
+            $this->articleRepository->findListByRubrique($rubrique),
+            $request->query->getInt('page', 1), 9
+        );
 
         return $this->render('video/liste.html.twig',[
-            'articles' => $this->articleRepository->findListByRubrique($rubrique),
+            'articles' => $articles,
             'rubrique' => $rubrique
         ]);
     }

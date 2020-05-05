@@ -9,6 +9,7 @@ use App\Utilities\GestionLog;
 use App\Utilities\GestionMedia;
 use Cassandra\Time;
 use Cocur\Slugify\Slugify;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,23 +23,30 @@ class ArticleController extends AbstractController
 {
     private $gestionMedia;
     private $log;
+    private $paginator;
 
-    public function __construct(GestionMedia $gestionMedia, GestionLog $log)
+    public function __construct(GestionMedia $gestionMedia, GestionLog $log, PaginatorInterface $paginator)
     {
         $this->gestionMedia = $gestionMedia;
         $this->log = $log;
+        $this->paginator = $paginator;
     }
 
     /**
      * @Route("/", name="article_index", methods={"GET"})
      */
-    public function index(ArticleRepository $articleRepository): Response
+    public function index(ArticleRepository $articleRepository, Request $request): Response
     {
         // Enregistrement du log
         $this->log->addLog('backendArticleListe');
 
+        $articles = $this->paginator->paginate(
+            $articleRepository->findBy([],['id'=>'DESC']),
+            $request->query->getInt('page', 1), 9
+        );
+
         return $this->render('article/index.html.twig', [
-            'articles' => $articleRepository->findBy([],['id'=>'DESC']),
+            'articles' => $articles,
         ]);
     }
 
