@@ -1,20 +1,252 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent ()}} Accueil{% endblock %}
+{% block title %}{{ parent ()}} {% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <section class="tv-container">
+        <!-- Carousel -->
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
 
-<div class="example-wrapper">
-    <h1>Base de symfony 5</h1>
+            <div class="carousel-inner">
 
-    <ul>
-        <li>Connexion<code><a href="{{ path('app_login') }}">Connexion</a></code></li>
-        <li> <code><a href="{{ path('app_register') }}">S'inscrire</a></code></li>
-        <li> <code><a href="{{ path('app_monitoring') }}">Log</a></code></li>
-    </ul>
-</div>
+                {% for carousel in carousels|slice(0,4) %}
+                    <div class="carousel-item {% if loop.first %}active {% endif %}">
+                        <img src="{{ absolute_url(asset('uploads/1920/'~ carousel.media.img1920)) }}" class="img-fluid" alt="{{ carousel.titre }}">
+                        <div class="video-play-icon">
+                            <a href="{{ path('video_show', {'slug': carousel.slug}) }}"><i class="fa fa-play-circle"></i></a>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+
+            <ul class="nav justify-content-center video-slider-refer">
+
+                {% for carousel in carousels|slice(0,4) %}
+                    <li data-target="#myCarousel" data-slide-to="{{ loop.index - 1 }}" class="{% if loop.first %}active{% endif %}">
+                        <a href="#"><img src="{{ absolute_url(asset('uploads/250/'~ carousel.media.img250)) }}" class="img-fluid" alt="{{ carousel.titre }}"></a>
+                    </li>
+                {% endfor %}
+            </ul>
+
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="video-bloc col-12 col-sm-12 col-md-8 col-lg-8">
+                    <div class="row">
+                        {% for article in articles|slice(0,4) %}
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                <div class="video-box">
+                                    <img src="{{ absolute_url(asset('uploads/480/'~ article.img480)) }}" class="img-thumbnail" alt="{{ article.titre }}">
+                                    <h3 class="video-title">{{ article.auteur }}: {{ article.titre }}</h3>
+                                    <div class="video-content">
+                                        <ul class="video-player-icon">
+                                            <li><a href="{{ path('video_show', {'slug': article.slug}) }}" title="voir la video"><i class="fa fa-play-circle"></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="row">
+                        <div class="col text-right dream-lien">
+                            <a href="#" class="">&raquo; Voir toutes les videos</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="playlist-bloc col-12 col-sm-12 col-md-4 col-lg-4">
+                    <div class="playlist-box col-12 col-sm-12 col-md-12 col-lg-12 ">
+                        <span class="playlist"><span class="btn btn-info playlist-btn"> <span>►</span> Dream Playlist</span></span>
+                        <div class="row">
+                            <div class="col-6 col-sm-6 artiste-cover-principal">
+                                <img src="assets/images/avatar.png" class="img-fluid">
+                            </div>
+                            <div class="col-6 col-sm-6 artiste-cover">
+                                <div class="row bb">
+                                    <div class="col-md-12 col-sm-12"><img src="assets/images/avatar.png" class="img-fluid" ></div>
+                                    <div class="col-md-12 col-sm-12"><img src="assets/images/avatar.png" class="img-fluid"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-tab col-12 col-sm-12 col-md-12 col-lg-12">
+                        <ul class="nav nav-tabs" id="DreamPlaylist" role="playlist">
+                            <li class="nav-item active">
+                                <a href="#clip" class="nav-link" id="clip-tab" data-toggle="tab" role="tab" aria-controls="clip" aria-selected="true">Clips</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#album" class="nav-link" id="album-tab" data-toggle="tab" role="tab" aria-controls="albums" aria-selected="false">Albums</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="DreamPlaylistContent">
+                            <div class="tab-pane fade show active" id="clip" role="tabpanel" aria-labelledby="clip-tab">
+                                <ul>
+                                    <li><a href="#">Ca va aller <div class="badge badge-info">El Pazo</div></a>    <span>4:31</span></li>
+                                    <li><a href="#">Ayo</a> <span>6:01</span></li>
+                                    <li><a href="#">Look at Me Now</a>  <span>4:09</span></li>
+                                    <li><a href="#">Liquor</a>  <span>3:51</span></li>
+                                    <li><a href="#">Love More</a>   <span>4:15</span></li>
+                                    <li><a href="#">Bitches N Marijuana</a> <span>4:17</span></li>
+                                    <li><a href="#">Don't Judge Me</a>  <span>4:52</span></li>
+                                    <li><a href="#">Turn Up the Music</a>   <span>4:18</span></li>
+                                    <li><a href="#">With You</a>  <span>4:16</span></li>
+                                    <li><a href="#">Next to You</a> <span>6:04</span></li>
+                                    <li><a href="#">Voir toute la liste</a></li>
+                                </ul>
+                            </div>
+                            <div class="tab-pane fade show"id="album" role="tabpanel" aria-labelledby="album-tab">
+                                <ul>
+                                    <li><a href="#"><img src="assets/images/avatar.png" alt="" width="75" height="75"> Ismael Isaac</a></li>
+                                    <li><a href="#"><img src="assets/images/avatar.png" alt="" width="75" height="75"> El Pazo</a></li>
+                                    <li><a href="#"><img src="assets/images/avatar.png" alt="" width="75" height="75"> Les Leaders</a></li>
+                                    <li><a href="#"><img src="assets/images/avatar.png" alt="" width="75" height="75"> Revolution</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid video-net">
+            <div class="row">
+                <div class="col-12 title">
+                    <h3>Vu sur le net</h3>
+                </div>
+            </div>
+            <div class="row video-net-box-section">
+                {% for diver in divers|slice(0,1) %}
+                    <div class="col-12 col-md-6">
+                        <div class="video-net-box video-net-principal">
+                            <img src="{{ absolute_url(asset('uploads/480/'~ diver.img480)) }}" alt="{{ diver.auteur }}" class="img-fluid">
+                            <div class="video-net-content">
+                                <span class="post">{{ diver.titre }}</span>
+                                <ul class="video-player-icon">
+                                    <li><a href="{{ path('video_show', {'slug': diver.slug}) }}"><i class="fa fa-play-circle"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="col-12 col-md-6">
+                    <div class="row ">
+                        {% for diver in divers|slice(1,5) %}
+                            <div class="col-6">
+                                <div class="video-net-box">
+                                    <img src="{{ absolute_url(asset('uploads/480/'~ diver.img480)) }}" alt="{{ diver.auteur }}" class="img-fluid">
+                                    <div class="video-net-content">
+                                        <span class="post">{{ diver.titre }}</span>
+                                        <ul class="video-player-icon">
+                                            <li><a href="{{ path('video_show', {'slug': diver.slug}) }}"><i class="fa fa-play-circle"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block navbar %}
+    <div class="nav-header">
+        <div class="container">
+            <div class="row menu-bar">
+                <div class="col col-sm-2 col-md-3">
+                    <img src="assets/images/logo-tv.png" alt="" width="70"  class="float-sm-left">
+                </div>
+                <div class="col-9 d-none d-md-block d-sm-none">
+                    <nav class="nav nav-pills nav-justified text-center menu-item-list">
+                        <a href="{{ path('app_accueil') }}" class="nav-item">
+                            <div class="menu-item">Accueil</div>
+                        </a>
+                        <a href="{{ absolute_url(path('video_rubriques', {'rubrique': 'showbiz'})) }}" class="nav-item">
+                            <div class="menu-item">Showbiz</div>
+                        </a>
+                        <a href="{{ absolute_url(path('video_rubriques', {'rubrique': 'sport'})) }}" class="nav-item">
+                            <div class="menu-item">Sports</div>
+                        </a>
+                        <a href="{{ absolute_url(path('video_rubriques', {'rubrique': 'buzz'})) }}" class="nav-item">
+                            <div class="menu-item">Buzz</div>
+                        </a>
+                        <a href="{{ absolute_url(path('video_rubriques', {'rubrique': 'divers'})) }}" class="nav-item">
+                            <div class="menu-item">Divers</div>
+                        </a>
+                    </nav>
+                </div>
+                <!-- Mobile Navbar -->
+                <div class="col col-sm-6 d-md-none d-sm-block float-sm-right text-right flex-column">
+                    <div class="row justify-content-sm-end float-sm-right text-right">
+                        <a href="#" class="menu-bar text-right float-sm-right justify-content-sm-end" data-toggle="collapse" data-target="#menuVertical">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="collapse navbar-collapse" id="menuVertical">
+                    <nav class="nav flex-column menu-item-list">
+                        <a href="{{ path('app_accueil') }}" class="nav-item">
+                            <div class="menu-item">Accueil</div>
+                        </a>
+                        <a href="{{ absolute_url(path('video_rubriques', {'rubrique': 'showbiz'})) }}" class="nav-item">
+                            <div class="menu-item">Showbiz</div>
+                        </a>
+                        <a href="{{ absolute_url(path('video_rubriques', {'rubrique': 'sport'})) }}" class="nav-item">
+                            <div class="menu-item">Sports</div>
+                        </a>
+                        <a href="{{ absolute_url(path('video_rubriques', {'rubrique': 'buzz'})) }}" class="nav-item">
+                            <div class="menu-item">Buzz</div>
+                        </a>
+                        <a href="{{ absolute_url(path('video_rubriques', {'rubrique': 'divers'})) }}" class="nav-item">
+                            <div class="menu-item">Divers</div>
+                        </a>
+                    </nav>
+                </div>
+                <!-- \Mobile Navbar -->
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('assets/vendor/OwlCarousel/assets/owl.carousel.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/OwlCarousel/assets/owl.theme.default.min.css') }}">
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('assets/vendor/OwlCarousel/owl.carousel.js') }}"></script>
+    <script>
+
+        // Carousel
+        $(document).ready( function() {
+            $('#myCarousel').carousel({
+                interval:   4000
+            });
+
+            var clickEvent = false;
+            $('#myCarousel').on('click', '.nav a', function() {
+                clickEvent = true;
+                $('.nav li').removeClass('active');
+                $(this).parent().addClass('active');
+            }).on('slid.bs.carousel', function(e) {
+                if(!clickEvent) {
+                    var count = $('.nav').children().length -1;
+                    var current = $('.nav li.active');
+                    current.removeClass('active').next().addClass('active');
+                    var id = parseInt(current.data('slide-to'));
+                    if(count == id) {
+                        $('.nav li').first().addClass('active');
+                    }
+                }
+                clickEvent = false;
+            });
+        });
+        //tabs
+        $('#DreamPlaylist a').on('click', function (e) {
+            e.preventDefault()
+            $(this).tab('show')
+        })
+    </script>
 {% endblock %}

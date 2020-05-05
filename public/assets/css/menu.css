@@ -1,0 +1,42 @@
+:root {
+    --accent-color: #45494E;
+    --gradient-color: #FBFBFB;
+}
+.menu-item-list a:focus {
+    outline: none;
+    position: relative;
+}
+.menu-item-list a:focus:after {
+    width: 50px;
+}
+.menu-item-list a:after {
+    content: "";
+    background: #fbfbfb;
+    position: absolute;
+    bottom: 5px;
+    left: 15px;
+    height: 3px;
+    width: 0;
+    transition: 0.5s;
+    transition-delay: 0.2s;
+}
+
+@media (min-width: 600px) {
+    .menu-item-list a:focus,
+    .menu-item-list a:hover {
+        position: relative;
+    }
+    .menu-item-list a:focus:after,
+    .menu-item-list a:hover:after {
+        width: 50px;
+    }
+    .menu-item-list a:after {
+        left: 0;
+        right: 0;
+        margin: auto;
+    }
+}
+
+
+
+

@@ -19,11 +19,67 @@ class ArticleRepository extends ServiceEntityRepository
         parent::__construct($registry, Article::class);
     }
 
+    /**
+     * @param $id
+     * @return \Doctrine\ORM\QueryBuilder
+     */
     public function getArticle($id)
     {
         return $this->createQueryBuilder('a')
             ->where('a.id = :id')
             ->setParameter('id', $id)
+            ;
+    }
+
+    /**
+     * Liste des video concernées par les carousel
+     *
+     * @return int|mixed|string
+     */
+    public function findCarousel()
+    {
+        return $this->createQueryBuilder('a')
+            ->where('a.IsSlide = 1')
+            ->orderBy('a.id', 'DESC')
+            ->getQuery()->getResult()
+            ;
+    }
+
+    /**
+     * Liste des articles selon la rubrique
+     *
+     * @param $rubrique
+     * @return int|mixed|string
+     */
+    public function findByRubriques($rubrique, $article)
+    {
+        return $this->createQueryBuilder('a')
+            ->leftJoin('a.rubrique', 'r')
+            ->where('r.id = :id')
+            ->andWhere('a.id <> :article')
+            ->orderBy('a.id', 'DESC')
+            ->setParameters([
+                'id' => $rubrique,
+                'article' => $article
+            ])
+            ->getQuery()->getResult()
+            ;
+    }
+
+    /**
+     * Liste des articles selon la rubrique
+     *
+     * @param $rubrique
+     * @return int|mixed|string
+     */
+    public function findListByRubrique($rubrique)
+    {
+        return $this->createQueryBuilder('a')
+            ->leftJoin('a.rubrique', 'r')
+            ->where('r.libelle LIKE :rubrique')
+            ->orderBy('a.id', 'DESC')
+            ->setParameter('rubrique', '%'.$rubrique."%")
+            ->getQuery()->getResult()
             ;
     }
 

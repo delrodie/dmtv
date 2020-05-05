@@ -1,0 +1,119 @@
+@import url(menu.css);
+
+@media only screen and (max-width: 600px) {
+  nav{
+    max-width: 200px;
+  }
+  .top-header{
+    min-height: 50px;
+    line-height: 24px;
+  }
+  #myCarousel .nav ul{
+    display: inline-block;
+  }
+  #myCarousel .nav ul li{
+    display: inline-flex;
+    float: left;
+  }
+  #myCarousel .nav li img{
+    width: 100px;
+  }
+  #myCarousel .nav img{
+    width: 100px;
+  }
+  .carousel-item img{
+    width: 100%;
+    height: auto;
+  }
+  .video-play-icon i{
+    font-size: 2rem;
+  }
+  .video-slider-refer li{
+    max-width: 85px;
+  }
+
+  .video-net-box .video-net-content{padding:5px;margin-bottom:5px;bottom:0;z-index:1}
+  .video-net-box .post{display:block;padding:3px 0;font-size:12px}
+  .video-net-box:hover .post,.video-net-box:hover .title{visibility: hidden}
+  .footer{
+    font-size: 0.6rem;
+  }
+}
+
+@media only screen and (min-width: 468px) and (max-width: 768px) {
+  .video-play-icon i{
+    font-size: 3rem;
+  }
+
+  .video-slider-refer li{
+    max-width: 120px;
+  }
+  .carousel-item img{
+    width: 100%;
+    height: auto;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .video-net-principal img {
+    min-width: 733px
+  }
+
+  .navbar-video{
+    &.open{
+      width: 60px;
+
+      &> .navbar-menu{
+        overflow: visible;
+
+        li a .desc{
+          position: absolute;
+          display: inline-block;
+          top: 50%;
+          left: 130px;
+          margin-top: -20px;
+          margin-left: 20px;
+          text-align: left;
+          white-space: nowrap;
+          padding: 10px 13px;
+          border-width: 0 !important;
+          background-color: rgb(51,51,51);
+          background-color: rgba(51,51,51, 0.8);
+          opacity: 0;
+
+          &:after{
+            z-index: -1;
+            position: absolute;
+            top: 50%;
+            left: -10px;
+            margin-top: -10px;
+            content: '';
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-right: 10px solid rgb(51, 51, 51);
+            border-right-color: rgba(51,51,51, 0.8);
+          }
+        }
+
+        li a:hover .desc{
+          left: 60px;
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+
+  .bg-details {
+    background-color: #fff;
+    height: 100%;
+    margin-top: 20px;
+    border-radius: 7px 7px 0 0;
+
+    & .embed-responsive-16by9 {
+      border-top-left-radius: 7px;
+    }
+  }
+}

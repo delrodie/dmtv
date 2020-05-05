@@ -27,6 +27,37 @@ class RubriqueRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('r')->orderBy('r.libelle', 'ASC');
     }
 
+    /**
+     * Liste des rubriques selon les articles
+     *
+     * @param $article
+     * @return int|mixed|string
+     */
+    public function findByArticle($article)
+    {
+        return $this->createQueryBuilder('r')
+            ->leftJoin('r.articles', 'a')
+            ->where('a.id = :id')
+            ->setParameter('id',$article)
+            ->getQuery()->getResult()
+            ;
+    }
+
+    /**
+     * La recherche de la rubrique
+     *
+     * @param $libelle
+     * @return int|mixed|string
+     */
+    public function findByLibelle($libelle)
+    {
+        return $this->createQueryBuilder('r')
+            ->where('r.libelle LIKE :libelle')
+            ->setParameter('libelle', '%'.$libelle.'%')
+            ->getQuery()->getResult()
+            ;
+    }
+
     // /**
     //  * @return Rubrique[] Returns an array of Rubrique objects
     //  */

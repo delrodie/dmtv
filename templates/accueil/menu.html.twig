@@ -1,0 +1,41 @@
+<div class="nav-header">
+    <div class="container">
+        <nav class="navbar navbar-fixed-left navbar-video animate" role="navigation">
+            <div class="navbar-toggler animate">
+                <span class=""></span>
+            </div>
+            <ul class="navbar-menu animate">
+                <li>
+                    <a href="{{ absolute_url(path('app_accueil')) }}" class="animate">
+                        <span class="desc animate"> Accueil </span>
+                        <span class="fa fa-home"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ absolute_url(path('video_rubriques', {'rubrique': 'showbiz'})) }}" class="animate">
+                        <span class="desc animate"> Showbiz </span>
+                        <span class="fa fa-music"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ absolute_url(path('video_rubriques', {'rubrique': 'sport'})) }}" class="animate">
+                        <span class="desc animate"> Sport </span>
+                        <span class="fa fa-biking"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ absolute_url(path('video_rubriques', {'rubrique': 'buzz'})) }}" class="animate">
+                        <span class="desc animate"> Buzz </span>
+                        <span class="fa fa-bomb"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ absolute_url(path('video_rubriques', {'rubrique': 'divers'})) }}" class="animate">
+                        <span class="desc animate"> Divers </span>
+                        <span class="fa fa-assistive-listening-systems"></span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>

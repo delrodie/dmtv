@@ -1,12 +1,180 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}SYMFONY 5 ::{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>{% block title %}Dream Maker TV{% endblock %}</title>
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('assets/css/style-min.css') }}">
+            <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
+        {% endblock %}
+        <script src="{{ asset('assets/js/date.js') }}"></script>
     </head>
-    <body>
+    <body {% block bgimage %}{% endblock %}>
+        <header class="tv-header">
+            <div class="top-header">
+                <div class="container">
+                    <div class="row flow-nowrap justify-content-between align-items-center">
+                        <div class="col col-sm-9 col-md-4 header-calendar justify-content-sm-center ">
+                            <i class="far fa-calendar-alt fa-1x"></i>
+                            <span id="date_heure"></span>
+                            <script type="text/javascript">window.onload = date_heure('date_heure');</script>
+                        </div>
+                        <div class="d-none d-sm-none d-md-block col-md-4 text-center header-social-icon">
+                            <a href="#" class="icon-facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="icon-twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="icon-instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="icon-youtube"><i class="fab fa-youtube"></i></a>
+                        </div>
+                        <div class="col col-sm-3 col-md-4 text-right">
+                            <a href="#">FR</a> |
+                            <a href="#">EN</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% block navbar %}{% endblock %}
+        </header>
         {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        <footer id="tv-footer" class="tv-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-lg-4">
+                        <div class="tv-footer-box-info">
+                            <a href="{{ absolute_url(path('app_accueil')) }}" class="footer-logo">
+                                <img src="{{ asset('assets/images/logo-tv.png') }}" alt="footer_logo" class="img-fluid" width="150">
+                            </a>
+                            <p class="footer-info-text">
+                                Reference site about Lorem Ipsum, giving information on its origins, as well as a random Lipsum generator.
+                            </p>
+                            <div class="footer-social-link">
+                                <h3>Nous suivre</h3>
+                                <ul>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fab fa-facebook"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fab fa-twitter"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fab fa-instagram"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fab fa-youtube"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-lg-8">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="contact-us">
+                                    <div class="contact-icon">
+                                        <i class="fa fa-map-marked-alt" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="contact-info">
+                                        <h3>Abidjan, Côte d'Ivoire</h3>
+                                        <p>Angré 7ème tranche</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="contact-us contact-us-last">
+                                    <div class="contact-icon">
+                                        <i class="fa fa-phone-volume" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="contact-info">
+                                        <h3>00225 58 58 00 00</h3>
+                                        <p>Nous appeler</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-lg-6">
+                                <div class="footer-widget footer-left-widget">
+                                    <div class="section-heading">
+                                        <h3>Rubriques</h3>
+                                        <span class="animate-border border-black"></span>
+                                    </div>
+                                    <ul>
+                                        <li>
+                                            <a href="{{ absolute_url(path('video_rubriques', {'rubrique': 'showbiz'})) }}">Showbiz</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ absolute_url(path('video_rubriques', {'rubrique': 'sport'})) }}">Sports</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ absolute_url(path('video_rubriques', {'rubrique': 'buzz'})) }}">Buzz</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ absolute_url(path('video_rubriques', {'rubrique': 'divers'})) }}">Divers</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-lg-6">
+                                <div class="footer-widget">
+                                    <div class="section-heading">
+                                        <h3>Newsletter</h3>
+                                        <span class="animate-border border-black"></span>
+                                    </div>
+                                    <p>Ne rater aucune information en souscrivant au Newsletter</p>
+                                    <form action="#">
+                                        <div class="form-row">
+                                            <div class="col tv-footer-form">
+                                                <input type="email" class="form-control" placeholder="Email Address">
+                                                <button type="submit">
+                                                    <i class="fa fa-send"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="copyright">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <span>Copyright © 2020, <a href="http://dreammaker-ci.com">DREAM MAKER</a> | Tous droits réservés</span>
+
+                        </div>>
+                    </div>
+                </div>
+            </div>
+            <div id="back-to-top" class="back-to-top">
+                <button class="btn btn-dark" title="Back to Top" style="display: block;">
+                    <i class="fa fa-angle-up"></i>
+                </button>
+            </div>
+        </footer>
+        {% block javascripts %}
+            <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+            <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+            <script src="{{ asset('assets/js/app.js') }}"></script>
+            <script src="{{ asset('assets/js/video.js') }}"></script>
+            <script>
+                $('#menuVertical').collapse({
+                    toggle: false
+                });
+            </script>
+        {% endblock %}
     </body>
 </html>

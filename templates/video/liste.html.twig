@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des vidéos de la rubrique {{ rubrique }}{% endblock %}
+
+{% block body %}
+
+    <section class="video-details">
+        <div class="text-center video-logo">
+            <img src="{{ absolute_url(asset('assets/images/logo-tv.png')) }}" alt="Logo Dream Maker TV" >
+        </div>
+        <div class="container bg-similaires">
+            <div class="row pt-60">
+                <div class="col-12">
+                    <h2>{{ rubrique|title}}</h2>
+                </div>
+                {% for article in articles|slice(0,9) %}
+                    <div class="col-6 col-sm-6 col-md-4">
+                        <div class="video-net-box">
+                            <img src="{{ absolute_url(asset('uploads/480/'~ article.img480)) }}" alt="" class="img-fluid">
+                            <div class="video-net-content">
+                                <span class="post">{{ article.titre }}</span>
+                                <ul class="video-player-icon">
+                                    <li><a href="{{ path('video_show', {'slug': article.slug}) }}"><i class="fa fa-play-circle"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Yabongo Lova: <span class="badge badge-primary">waman</span></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/K5Td9uGcewk" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block bgimage %}
+    style="background: url('#') no-repeat center fixed"
+{% endblock %}
+
+{% block navbar %}
+    {{ include('accueil/menu.html.twig') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v6.0"></script>
+    <script>
+        $(function () {
+
+            $('.navbar-toggler').on('click', function(event) {
+                event.preventDefault();
+                $(this).closest('.navbar-video').toggleClass('open');
+            })
+        });
+    </script>
+{% endblock %}

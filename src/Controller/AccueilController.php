@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\ArticleRepository;
 use App\Utilities\GestionLog;
 use App\Utilities\GestionMail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,20 +23,21 @@ class AccueilController extends AbstractController
     /**
      * @Route("/", name="app_accueil")
      */
-    public function index()
+    public function index(ArticleRepository $articleRepository)
     {
+        //dd($articleRepository->findCarousel());
         return $this->render('accueil/index.html.twig', [
-            'controller_name' => 'AccueilController',
+            'carousels' => $articleRepository->findCarousel(),
+            'articles' => $articleRepository->findBy(['isValid'=>true, 'IsSlide'=>false],['id'=>'DESC']),
+            'divers' => $articleRepository->findListByRubrique('divers')
         ]);
     }
 
     /**
-     * @Route("/dashboard", name="app_dashboard")
+     * @Route("/menu", name="app_menu")
      */
-    public function dashboard(Request $request)
+    public function menu(Request $request)
     {
-        //$user = $this->getUser();
-        $this->log->addLog('dashboard');
-        return $this->render("accueil/index.html.twig");
+        return $this->render("accueil/menu.html.twig");
     }
 }

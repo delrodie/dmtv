@@ -27,6 +27,24 @@
                                     <p class="mb-0">actions</p>
                                 </div>
                             </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-sm-12">
+                            <div class="card m-b-30 contact">
+                                <div class="card-body">
+                                    <h6 class="header-title pb-3">Recherche</h6>
+                                    <form action="{{ path('app_monitoring') }}" method="post">
+                                        <div class="input-group mt-2">
+                                            <input type="text" class="form-control" placeholder="Search for..." aria-label="Search for..."  id="datepicker-autoclose">
+                                            <span class="input-group-append">
+                                                <button class="btn btn-primary" type="button"><span class="fa fa-search"></span></button>
+                                            </span>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -67,5 +85,18 @@
         </div>
     </div>
 
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('backoffice/plugins/timepicker/bootstrap-material-datetimepicker.css') }}">
+    <link rel="stylesheet" href="{{ asset('backoffice/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}">
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('backoffice/plugins/timepicker/bootstrap-material-datetimepicker.js') }}"></script>
+    <script src="{{ asset('backoffice/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+    <script>
+        $("#datepicker-autoclose").datepicker({autoclose:!0,todayHighlight:!0});
+    </script>
 {% endblock %}
 
