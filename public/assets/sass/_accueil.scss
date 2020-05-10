@@ -5,6 +5,15 @@
   --dream-jaune: #C69909;
 }
 
+.text{
+  &-bleu{
+    color: var(--dream-bleu);
+  }
+  &-rouge{
+    color: var(--dream-rouge)
+  }
+}
+
 .bb-r{
   border: solid 1px var(--dream-bleu);
 }
@@ -272,6 +281,12 @@ span.btn.playlist-btn:hover{
 .list-tab .nav-tabs>li>a{border:0;padding:17px 0 7px;color:#333;margin-left:15px;}
 .list-tab .nav-tabs>li.active>a{border-bottom:2px solid var(--dream-rouge);color:var(--dream-bleu);}
 .list-tab{background-color:#fff;}
+
+.album-list{
+  img{
+    width: 75px;
+  }
+}
 
 /*********************** Liste des videos *******************/
 .video-bloc{margin-top: 100px;}

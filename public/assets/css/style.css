@@ -6,6 +6,13 @@
   --dream-jaune: #C69909;
 }
 
+.text-bleu {
+  color: var(--dream-bleu);
+}
+.text-rouge {
+  color: var(--dream-rouge);
+}
+
 .bb-r {
   border: solid 1px var(--dream-bleu);
 }
@@ -344,6 +351,10 @@ span.btn.playlist-btn:hover {
 
 .list-tab {
   background-color: #fff;
+}
+
+.album-list img {
+  width: 75px;
 }
 
 /*********************** Liste des videos *******************/

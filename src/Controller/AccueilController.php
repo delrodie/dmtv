@@ -39,11 +39,12 @@ class AccueilController extends AbstractController
         $articles = $this->cache->get('home_articles', function (ItemInterface $item) use ($articleRepository) {
             $item->expiresAfter(86400);
             return $articleRepository->findBy(['isValid'=>true, 'IsSlide'=>false],['id'=>'DESC']);
-        });
+        }); //dd($articles);
         return $this->render('accueil/index.html.twig', [
             'carousels' => $carousels,
             'articles' => $articles,
-            'divers' => $articleRepository->findListByRubrique('divers')
+            'divers' => $articleRepository->findListByRubrique('divers'),
+            'playlists' => $articleRepository->findListByRubrique('playlist')
         ]);
     }
 
