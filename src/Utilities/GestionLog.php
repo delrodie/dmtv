@@ -92,6 +92,11 @@ class GestionLog
         $backend_RubriqueSave = $username." a enregistré la rubrique ".$action;
         $backend_RubriqueEdit = $username." a tenté de modifier la rubrique ".$action;
         $backend_RubriqueUpdate= $username." a modifé la rubrique ".$action;
+        $backend_AlbumListe = $username." a affiché la liste des albums";
+        $backend_AlbumSave = $username." a enregistré l'album ".$action;
+        $backend_AlbumEdit = $username. " a tenté de modifier l'album ".$action;
+        $backend_AlbumUpdate = $username. " a modifé l'album ".$action;
+        $backend_albumDelete = $username." a supprimé l'album ".$action;
 
 
         // Affectaion des actions au resultat en fonction de la rubrique
@@ -144,6 +149,21 @@ class GestionLog
                 break;
             case 'backendRubriqueUpdate':
                 $result = $backend_RubriqueUpdate;
+                break;
+            case 'backendAlbumList':
+                $result = $backend_AlbumListe;
+                break;
+            case 'backendAlbumSave':
+                $result = $backend_AlbumSave;
+                break;
+            case 'backendAlbumUpdate':
+                $result = $backend_AlbumUpdate;
+                break;
+            case 'backendAlbumEdit':
+                $result = $backend_AlbumEdit;
+                break;
+            case 'backendAlbumDelete':
+                $result = $backend_albumDelete;
                 break;
             default:
                 $result = 'Accueil';

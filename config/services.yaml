@@ -39,3 +39,4 @@ services:
             $media1920Directory: '%kernel.project_dir%/public/uploads/1920'
             $media480Directory: '%kernel.project_dir%/public/uploads/480'
             $media250Directory: '%kernel.project_dir%/public/uploads/250'
+            $mediaAlbum: '%kernel.project_dir%/public/uploads/album'

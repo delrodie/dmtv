@@ -27,7 +27,7 @@
 
                 <div class="topbar-left">
                     <div class="text-center">
-                        <a href="{{ path('app_accueil') }}" class="logo"><img src="assets/images/logo.png" height="18" alt="logo"></a>
+                        <a href="{{ path('app_accueil') }}" class="logo"><img src="{{ asset('assets/images/logo-tv.png') }}" width="50" alt="logo"></a>
                     </div>
                 </div>
 
@@ -51,6 +51,7 @@
                                 <ul class="list-unstyled">
                                     <li><a href="{{ path('article_index') }}">Articles</a></li>
                                     <li><a href="{{ path('media_index') }}">Medias</a></li>
+                                    <li><a href="{{ path('album_index') }}">Albums</a></li>
                                     <li><a href="{{ path('rubrique_index') }}">Rubriques</a></li>
                                 </ul>
                             </li>

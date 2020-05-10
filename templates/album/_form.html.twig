@@ -1,0 +1,22 @@
+{{ form_start(form) }}
+    <div class="form-group">
+        <div class="row">
+            <div class="col-12">
+                {{ form_row(form.auteur) }}
+            </div>
+            <div class="col-12">
+                {{ form_row(form.titre) }}
+            </div>
+            <div class="col-12">
+                {{ form_row(form.lien) }}
+            </div>
+        </div>
+    </div>
+    {{ form_widget(form) }}
+<div class="form-group mt-5 mb-0">
+    <div class="text-right">
+        <a href="{{ path('album_index') }}" class="btn btn-secondary waves-effect m-l-5">Annuler</a>
+        <button class="btn btn-primary waves-effect waves-light">{{ button_label|default('Enregistrer') }}</button>
+    </div>
+</div>
+{{ form_end(form) }}
