@@ -59,13 +59,18 @@
                     <div class="playlist-box col-12 col-sm-12 col-md-12 col-lg-12 ">
                         <span class="playlist"><span class="btn btn-info playlist-btn"> <span>►</span> Dream Playlist</span></span>
                         <div class="row">
-                            <div class="col-6 col-sm-6 artiste-cover-principal">
-                                <img src="assets/images/avatar.png" class="img-fluid">
-                            </div>
+                            {% for album in albums|slice(0,1) %}
+                                <div class="col-6 col-sm-6 artiste-cover-principal">
+                                    <img src="{{ asset('uploads/album/'~ album.cover) }}" class="img-fluid">
+                                </div>
+                            {% endfor %}
                             <div class="col-6 col-sm-6 artiste-cover">
                                 <div class="row bb">
-                                    <div class="col-md-12 col-sm-12"><img src="assets/images/avatar.png" class="img-fluid" ></div>
-                                    <div class="col-md-12 col-sm-12"><img src="assets/images/avatar.png" class="img-fluid"></div>
+                                    {% for album in albums|slice(1,2) %}
+                                        <div class="col-md-12 col-sm-12">
+                                            <img src="{{ asset('uploads/album/'~ album.cover) }}" class="img-fluid" >
+                                        </div>
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>
@@ -89,10 +94,12 @@
                             </div>
                             <div class="tab-pane fade show"id="album" role="tabpanel" aria-labelledby="album-tab">
                                 <ul class="album-list">
-                                    <li><a href="#"><img src="assets/images/avatar.png" alt="" width="75" height="75"> Ismael Isaac</a></li>
-                                    <li><a href="#"><img src="assets/images/avatar.png" alt="" width="75" height="75"> El Pazo</a></li>
-                                    <li><a href="#"><img src="assets/images/avatar.png" alt="" width="75" height="75"> Les Leaders</a></li>
-                                    <li><a href="#"><img src="assets/images/avatar.png" alt="" width="75" height="75"> Revolution</a></li>
+                                    {% for album in albums|slice(0,4) %}
+                                        <li>
+                                            <a href="{{ album.lien}}" target="_blank"><img src="{{ asset('uploads/album/'~ album.cover) }}" alt="" width="75" height="75">
+                                            {{ album.auteur }}</a>
+                                        </li>
+                                    {% endfor %}
                                 </ul>
                             </div>
                         </div>

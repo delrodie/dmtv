@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\AlbumRepository;
 use App\Repository\ArticleRepository;
 use App\Utilities\GestionLog;
 use App\Utilities\GestionMail;
@@ -16,12 +17,14 @@ class AccueilController extends AbstractController
     private $gestMail;
     private $log;
     private $cache;
+    private $albumRepositry;
 
-    public function __construct(GestionMail $gestionMail, GestionLog $log, CacheInterface $cache)
+    public function __construct(GestionMail $gestionMail, GestionLog $log, CacheInterface $cache, AlbumRepository $albumRepository)
     {
         $this->gestMail= $gestionMail;
         $this->log = $log;
         $this->cache = $cache;
+        $this->albumRepositry = $albumRepository;
     }
 
     /**
@@ -44,7 +47,8 @@ class AccueilController extends AbstractController
             'carousels' => $carousels,
             'articles' => $articles,
             'divers' => $articleRepository->findListByRubrique('divers'),
-            'playlists' => $articleRepository->findListByRubrique('playlist')
+            'playlists' => $articleRepository->findListByRubrique('playlist'),
+            'albums' => $this->albumRepositry->findBy([], ['id'=>'DESC'])
         ]);
     }
 
