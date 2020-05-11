@@ -37,10 +37,13 @@ class VideoController extends AbstractController
     public function index(Request $request)
     {
         // Mise en cache de la liste des videos
+        /*
         $articlesCache = $this->cache->get('articles_liste', function (ItemInterface $item){
             $item->expiresAfter(86400);
             return $this->articleRepository->findBy(['isValid'=>true],['id'=>'DESC']);
         });
+        */
+        $articlesCache = $this->articleRepository->findBy(['isValid'=>true],['id'=>'DESC']);
 
         // Pagination
         $articles = $this->paginator->paginate(
@@ -62,6 +65,7 @@ class VideoController extends AbstractController
         //$similaires = [];
 
         // Mise en cache des articles similaires
+        /*
         $similaires = $this->cache->get($article->getSlug(),function (ItemInterface $item) use ($article) {
             $item->expiresAfter(86400); // Expire après 24h
             $rubriques = $this->rubriqueRepository->findByArticle($article->getId());
@@ -72,6 +76,13 @@ class VideoController extends AbstractController
 
             return $similaires;
         });
+        */
+        $rubriques = $this->rubriqueRepository->findByArticle($article->getId());
+        foreach ($rubriques as $key => $rubrique){
+            $id = $rubrique->getId();
+            $similaires[] = $this->articleRepository->findByRubriques($id, $article->getId());
+        }
+
         return $this->render("video/show.html.twig",[
             'article' => $article,
             'similaires' => $similaires
@@ -84,10 +95,13 @@ class VideoController extends AbstractController
     public function rubrique($rubrique, Request $request)
     {
         // Mise en cache de la liste des rubriques
+        /*
         $articleListe = $this->cache->get($rubrique,function (ItemInterface $item) use ($rubrique) {
             $item->expiresAfter(86400); // Expires après 24h
             return $this->articleRepository->findListByRubrique($rubrique);
         } );
+        */
+        $articleListe = $this->articleRepository->findListByRubrique($rubrique);
 
         // Pagination du resultat
         $articles = $this->paginator->paginate(

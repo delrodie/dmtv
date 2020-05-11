@@ -33,16 +33,22 @@ class AccueilController extends AbstractController
     public function index(ArticleRepository $articleRepository)
     {
         // Mise en cache du carousel
+        /*
         $carousels = $this->cache->get('carousel', function (ItemInterface $item) use ($articleRepository) {
             $item->expiresAfter(86400);
             return $articleRepository->findCarousel();
         });
+        */
+        $carousels = $articleRepository->findCarousel();
 
         // Mise en cache des videos
+        /*
         $articles = $this->cache->get('home_articles', function (ItemInterface $item) use ($articleRepository) {
             $item->expiresAfter(86400);
             return $articleRepository->findBy(['isValid'=>true, 'IsSlide'=>false],['id'=>'DESC']);
         }); //dd($articles);
+        */
+        $articles = $articleRepository->findBy(['isValid'=>true, 'IsSlide'=>false],['id'=>'DESC']);
         return $this->render('accueil/index.html.twig', [
             'carousels' => $carousels,
             'articles' => $articles,
