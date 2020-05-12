@@ -5,11 +5,49 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>{% block title %}Dream Maker TV{% endblock %}</title>
-        {% block stylesheets %}
-            <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-            <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
+        {% block meta %}
+            <meta name="keywords" content="Dream Maker, TV, webTV, video, streamming, "  />
+            <meta name="description" content="Dream Maker TV est une plateforme qui a pour objectif de faire la promotion d'events, de video musicales, sportives pour le divertissement des internautes" />
+            <meta name="revisit" content="7 days" />
+            <meta name="revisit-after" content="7 days">
+            <meta name="Author" content="Dream Maker TV, Delrodie AMOIKON">
+            <meta name="Copyright" content="tv.dreammakerci.com">
+            <meta name="Content-Language" content="FR">
+            <meta name="distribution" content="global" />
+            <meta name="Audience" content="All" />
+            <meta name="Robots" content="full">
+
+            <link rel="canonical" href="{{ absolute_url(path('app_accueil')) }}" />
+            <meta property="og:locale" content="fr_FR" />
+            <meta property="og:type" content="website" />
+            <meta property="og:title" content="Dream Maker TV" />
+            <meta property="og:description" content="Dream Maker TV est une plateforme qui a pour objectif de faire la promotion d'events, de video musicales, sportives pour le divertissement des internautes " />
+            <meta property="og:url" content="{{ absolute_url(path('app_accueil')) }}" />
+            <meta property="og:site_name" content="Dream Maker TV" />
+            <meta property="article:section" content="Item" />
+            <meta property="article:published_time" content="2018-01-20T15:25:59+00:00" />
+            <meta property="og:image" content="{{ absolute_url(asset('assets/images/logo-tv.png')) }}" />
+            <meta name="twitter:card" content="summary"/>
+            <meta name="twitter:description" content="Dream Maker TV est une plateforme qui a pour objectif de faire la promotion d'events, de video musicales, sportives pour le divertissement des internautes"/>
+            <meta name="twitter:title" content="Dream Maker TV"/>
+            <meta name="twitter:domain" content="{{ absolute_url(path('app_accueil')) }}"/>
+            <meta name="twitter:image:src" content="{{ absolute_url(asset('assets/images/logo-tv.png')) }}"/>
         {% endblock %}
-        <script src="{{ asset('assets/js/date.js') }}"></script>
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ absolute_url(asset('assets/css/style.css') )}}">
+            <link rel="stylesheet" href="{{ absolute_url(asset('assets/css/responsive.css')) }}">
+        {% endblock %}
+        <script src="{{ absolute_url(asset('assets/js/date.js')) }}"></script>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-104978409-13"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'UA-104978409-13');
+        </script>
+
     </head>
     <body {% block bgimage %}{% endblock %}>
         <header class="tv-header">
@@ -153,7 +191,7 @@
                             <span>Copyright © 2020, <a href="http://dreammaker-ci.com">DREAM MAKER</a> | Tous droits réservés</span>
                         </div>
                         <div class="col-md-6 text-right">
-                            <span><a href="{{ path('backend_dashboard') }}" target="_blank">Backoffice</a></span>
+                            <span><a href="{{ absolute_url(path('backend_dashboard')) }}" target="_blank">Backoffice</a></span>
                         </div>
                     </div>
                 </div>
@@ -165,11 +203,12 @@
             </div>
         </footer>
         {% block javascripts %}
-            <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+            <script src="{{ absolute_url(asset('assets/js/jquery.min.js')) }}"></script>
             <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-            <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
-            <script src="{{ asset('assets/js/app.js') }}"></script>
-            <script src="{{ asset('assets/js/video.js') }}"></script>
+            <script src="{{ absolute_url(asset('assets/vendor/bootstrap/js/bootstrap.min.js')) }}"></script>
+            <script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=5eba7ed35433140012c373d9&product=inline-share-buttons&cms=sop' async='async'></script>
+            <script src="{{ absolute_url(asset('assets/js/app.js') )}}"></script>
+            <script src="{{ absolute_url(asset('assets/js/video.js')) }}"></script>
             <script>
                 $('#menuVertical').collapse({
                     toggle: false

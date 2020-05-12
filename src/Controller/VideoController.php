@@ -43,7 +43,7 @@ class VideoController extends AbstractController
             return $this->articleRepository->findBy(['isValid'=>true],['id'=>'DESC']);
         });
         */
-        $articlesCache = $this->articleRepository->findBy(['isValid'=>true],['id'=>'DESC']);
+        $articlesCache = $this->articleRepository->findBy(['isValid'=>true],['publieLe'=>'DESC']);
 
         // Pagination
         $articles = $this->paginator->paginate(

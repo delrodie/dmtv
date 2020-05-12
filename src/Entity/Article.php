@@ -78,6 +78,11 @@ class Article
      */
     private $media;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $publieLe;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -249,6 +254,18 @@ class Article
         if ($media->getArticle() !== $newArticle) {
             $media->setArticle($newArticle);
         }
+
+        return $this;
+    }
+
+    public function getPublieLe(): ?string
+    {
+        return $this->publieLe;
+    }
+
+    public function setPublieLe(string $publieLe): self
+    {
+        $this->publieLe = $publieLe;
 
         return $this;
     }

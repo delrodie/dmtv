@@ -40,7 +40,7 @@ class ArticleRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('a')
             ->where('a.IsSlide = 1')
-            ->orderBy('a.id', 'DESC')
+            ->orderBy('a.publieLe', 'DESC')
             ->getQuery()->getResult()
             ;
     }
@@ -57,7 +57,7 @@ class ArticleRepository extends ServiceEntityRepository
             ->leftJoin('a.rubrique', 'r')
             ->where('r.id = :id')
             ->andWhere('a.id <> :article')
-            ->orderBy('a.id', 'DESC')
+            ->orderBy('a.publieLe', 'DESC')
             ->setParameters([
                 'id' => $rubrique,
                 'article' => $article
@@ -77,7 +77,7 @@ class ArticleRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('a')
             ->leftJoin('a.rubrique', 'r')
             ->where('r.libelle LIKE :rubrique')
-            ->orderBy('a.id', 'DESC')
+            ->orderBy('a.publieLe', 'DESC')
             ->setParameter('rubrique', '%'.$rubrique."%")
             ->getQuery()->getResult()
             ;

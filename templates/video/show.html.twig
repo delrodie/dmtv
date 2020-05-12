@@ -18,10 +18,13 @@
                             </div>
                             <h3 data-toggle="modal" data-target=".bd-example-modal-xl" title="Ouvrir en plein ecran"><span>{{ article.auteur }}</span>
                                 {{ article.titre }}</h3>
+                            <div class="mt-5">
+                                <div class="sharethis-inline-share-buttons"></div>
+                            </div>
                         </div>
                         <div class="col-sm-12 col-md-4 col-lg-4">
                             <div id="fb-root"></div>
-                            <div class="fb-comments" data-href="https://developers.facebook.com/docs/plugins/comments#configurator" data-numposts="5" data-width="360"></div>
+                            <div class="fb-comments" data-href="{{ absolute_url(path('video_show',{'slug': article.slug})) }}" data-numposts="5" data-width="360"></div>
                         </div>
                     </div>
                 </div>
@@ -78,13 +81,42 @@
     style="background: url('#') no-repeat center fixed"
 {% endblock %}
 
+{% block meta %}
+    <meta name="keywords" content="{{ article.tag}}"  />
+    <meta name="description" content="{{ article.description|raw }}" />
+    <meta name="revisit" content="7 days" />
+    <meta name="revisit-after" content="7 days">
+    <meta name="Author" content="Dream Maker TV, Delrodie AMOIKON">
+    <meta name="Copyright" content="tv.dreammakerci.com">
+    <meta name="Content-Language" content="FR">
+    <meta name="distribution" content="global" />
+    <meta name="Audience" content="All" />
+    <meta name="Robots" content="full">
+
+    <link rel="canonical" href="{{ absolute_url(path('video_show',{'slug': article.slug})) }}" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="{{ article.titre }}" />
+    <meta property="og:description" content="{{ article.description|raw}} " />
+    <meta property="og:url" content="{{ absolute_url(path('video_show',{'slug': article.slug}))}}" />
+    <meta property="og:site_name" content="Dream Maker TV" />
+    <meta property="article:section" content="Item" />
+    <meta property="article:published_time" content="{{ article.createdAt|date('Y-m-d') }}T{{ article.createdAt|date('H:i:s') }}+00:00" />
+    <meta property="og:image" content="{{ absolute_url(asset('uploads/480/'~ article.img480)) }}" />
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:description" content="{{ article.description|raw }}"/>
+    <meta name="twitter:title" content="{{ article.titre }}"/>
+    <meta name="twitter:domain" content="{{ absolute_url(path('video_show',{'slug': article.slug})) }}"/>
+    <meta name="twitter:image:src" content="{{ absolute_url(asset('uploads/480/' ~ article.img480)) }}"/>
+{% endblock %}
+
 {% block navbar %}
     {{ include('accueil/menu.html.twig') }}
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
-    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v6.0"></script>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v7.0"></script>
     <script>
         $(function () {
 
