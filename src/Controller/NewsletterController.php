@@ -42,11 +42,11 @@ class NewsletterController extends AbstractController
             }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($newsletter);
-            $entityManager->flush();
+            $entityManager->flush(); 
 
             $this->addFlash('success', "Votre email a bien été enregistré. Vous ne manquerez desormais d'aucune information ");
 
-            return $this->redirectToRoute('newsletter_show',['id', $newsletter->getId()]);
+            return $this->redirectToRoute('newsletter_show',['id'=> $newsletter->getId()]);
         }
 
         return $this->render('newsletter/new.html.twig', [
