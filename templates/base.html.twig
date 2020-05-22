@@ -168,14 +168,8 @@
                                         <h3>Newsletter</h3>
                                         <span class="animate-border border-black"></span>
                                     </div>
-                                    <p>Ne rater aucune information en souscrivant au Newsletter</p>
-                                    <form action="#">
-                                        <div class="form-row">
-                                            <div class="col tv-footer-form">
-                                                <script id="mcjs">!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/772366d88e11c3733ca391f73/74638ed6a7620fd36b6c4da6f.js");</script>
-                                            </div>
-                                        </div>
-                                    </form>
+                                    <p style="margin-top: 25px;">Ne rater aucune information en souscrivant au Newsletter</p>
+                                    {{ render(url('newsletter_new'))}}
                                 </div>
                             </div>
                         </div>
@@ -213,6 +207,23 @@
                 $('#menuVertical').collapse({
                     toggle: false
                 });
+                $(window).scroll(function () {
+                    if ($(this).scrollTop() > 50) {
+                        $('#back-to-top').fadeIn();
+                    } else {
+                        $('#back-to-top').fadeOut();
+                    }
+                });
+                // scroll body to 0px on click
+                $('#back-to-top').click(function () {
+                    $('#back-to-top').tooltip('hide');
+                    $('body,html').animate({
+                        scrollTop: 0
+                    }, 800);
+                    return false;
+                });
+
+                $('#back-to-top').tooltip('show');
             </script>
         {% endblock %}
     </body>

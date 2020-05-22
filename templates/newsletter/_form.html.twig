@@ -1,0 +1,11 @@
+<form action="{{ path('newsletter_new') }}" method="post" name="newsletter">
+<div class="form-row">
+    <div class="col tv-footer-form">
+        {{ form_widget(form.email) }}
+        {{ form_widget(form) }}
+        <button type="submit">
+            <i class="fa fa-paper-plane"></i>
+        </button>
+    </div>
+</div>
+</form>

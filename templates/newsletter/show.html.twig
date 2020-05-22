@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Newsletter{% endblock %}
+
+{% block body %}
+
+    <section class="video-details">
+        <div class="text-center video-logo">
+            <img src="{{ absolute_url(asset('assets/images/logo-tv.png')) }}" alt="Logo Dream Maker TV" >
+        </div>
+        <div class="container bg-similaires">
+            <div class="row pt-60">
+                <div class="col-12">
+                    {% for label, messages in app.flashes %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+                                <h4 class="alert-heading">Newsletter</h4>
+                                <hr>
+                                <p>{{ message }}</p>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block bgimage %}
+    style="background: url('#') no-repeat center fixed"
+{% endblock %}
+
+{% block navbar %}
+    {{ include('accueil/menu.html.twig') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v6.0"></script>
+    <script>
+        $(function () {
+
+            $('.navbar-toggler').on('click', function(event) {
+                event.preventDefault();
+                $(this).closest('.navbar-video').toggleClass('open');
+            })
+        });
+    </script>
+{% endblock %}
