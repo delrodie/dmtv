@@ -84,9 +84,10 @@ class ArticleRepository extends ServiceEntityRepository
     }
 
     /**
-     * Liste des articles sauf ceux des rubriques concernées
+     * Liste des articles non concernés par lesrubriques
      *
-     * @param $rubrique
+     * @param $rubrique1
+     * @param $rubrique2
      * @return int|mixed|string
      */
     public function findListSaufRubrique($rubrique1, $rubrique2)
@@ -94,11 +95,15 @@ class ArticleRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('a')
             ->leftJoin('a.rubrique', 'r')
             ->where('r.libelle <> :rubrique1')
-            ->andWhere('r.libelle <> :rubrique2')
+            ->orWhere('r.libelle <> :rubrique2')
+            ->andWhere('a.isValid = :valid')
+            ->andWhere('a.IsSlide = :slide')
             ->orderBy('a.publieLe', 'DESC')
             ->setParameters([
-                'rubrique1'=> '%'.$rubrique1."%",
-                'rubrique2' =>'%'.$rubrique2."%"
+                'rubrique1'=> $rubrique1,
+                'rubrique2' =>$rubrique2,
+                'valid' => true,
+                'slide' => false
             ])
             ->getQuery()->getResult()
             ;
