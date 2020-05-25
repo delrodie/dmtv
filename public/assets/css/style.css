@@ -167,7 +167,7 @@
   background-color: transparent;
 }
 
-#myCarousel .nav li {
+#myCarousel .nav div {
   display: inline-block;
   padding-right: 2px;
 }
