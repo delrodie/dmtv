@@ -83,6 +83,27 @@ class ArticleRepository extends ServiceEntityRepository
             ;
     }
 
+    /**
+     * Liste des articles sauf ceux des rubriques concernées
+     *
+     * @param $rubrique
+     * @return int|mixed|string
+     */
+    public function findListSaufRubrique($rubrique1, $rubrique2)
+    {
+        return $this->createQueryBuilder('a')
+            ->leftJoin('a.rubrique', 'r')
+            ->where('r.libelle <> :rubrique1')
+            ->andWhere('r.libelle <> :rubrique2')
+            ->orderBy('a.publieLe', 'DESC')
+            ->setParameters([
+                'rubrique1'=> '%'.$rubrique1."%",
+                'rubrique2' =>'%'.$rubrique2."%"
+            ])
+            ->getQuery()->getResult()
+            ;
+    }
+
     // /**
     //  * @return Article[] Returns an array of Article objects
     //  */

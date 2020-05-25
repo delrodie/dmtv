@@ -51,7 +51,7 @@ class AccueilController extends AbstractController
         $articles = $articleRepository->findBy(['isValid'=>true, 'IsSlide'=>false],['publieLe'=>'DESC']);
         return $this->render('accueil/index.html.twig', [
             'carousels' => $carousels,
-            'articles' => $articles,
+            'articles' => $articleRepository->findListSaufRubrique('divers','buzz'),
             'divers' => $articleRepository->findListByRubrique('divers'),
             'playlists' => $articleRepository->findListByRubrique('playlist'),
             'albums' => $this->albumRepositry->findBy([], ['id'=>'DESC'])

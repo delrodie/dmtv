@@ -75,10 +75,6 @@
   }
 }
 @media only screen and (min-width: 768px) {
-  .video-net-principal img {
-    min-width: 733px;
-  }
-
   .navbar-video.open {
     width: 60px;
   }
