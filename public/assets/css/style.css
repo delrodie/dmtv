@@ -177,8 +177,8 @@
 }
 
 .carousel-item img {
-  width: 1920px;
-  height: 600px;
+  height: auto;
+  width: 100%;
 }
 
 .video-play-icon {

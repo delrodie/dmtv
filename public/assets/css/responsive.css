@@ -124,6 +124,15 @@
   .bg-details .embed-responsive-16by9 {
     border-top-left-radius: 7px;
   }
+
+  .video-slider-refer {
+    z-index: 1;
+    top: -90px;
+    position: relative;
+  }
+  .video-slider-refer img {
+    border: solid 7px #ffffff;
+  }
 }
 @media only screen and (min-width: 769px) and (max-width: 1024px) {
   .video-play-icon i {
@@ -141,6 +150,25 @@
 
   .video-net-principal img {
     min-width: 500px;
+  }
+
+  .video-slider-refer {
+    z-index: 1;
+    top: -100px;
+    position: relative;
+  }
+  .video-slider-refer img {
+    border: solid 7px #ffffff;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  .video-slider-refer {
+    z-index: 1;
+    top: -200px;
+    position: relative;
+  }
+  .video-slider-refer img {
+    border: solid 7px #ffffff;
   }
 }
 

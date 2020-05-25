@@ -114,6 +114,16 @@
       border-top-left-radius: 7px;
     }
   }
+
+  .video-slider-refer{
+    z-index: 1;
+    top: -90px;
+    position: relative;
+
+    img{
+      border: solid 7px #ffffff;
+    }
+  }
 }
 
 
@@ -132,5 +142,28 @@
 
   .video-net-principal img {
     min-width: 500px
+  }
+
+  .video-slider-refer{
+    z-index: 1;
+    top: -100px;
+    position: relative;
+
+    img{
+      border: solid 7px #ffffff;
+    }
+  }
+}
+
+@media only screen and (min-width: 1025px) {
+
+  .video-slider-refer{
+    z-index: 1;
+    top: -200px;
+    position: relative;
+
+    img{
+      border: solid 7px #ffffff;
+    }
   }
 }
