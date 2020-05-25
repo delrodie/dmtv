@@ -94,14 +94,14 @@ class ArticleRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('a')
             ->leftJoin('a.rubrique', 'r')
-            ->where('r.libelle <> :rubrique1')
-            ->orWhere('r.libelle <> :rubrique2')
+            ->where('r.libelle LIKE :rubrique1')
+            ->orWhere('r.libelle LIKE :rubrique2')
             ->andWhere('a.isValid = :valid')
             ->andWhere('a.IsSlide = :slide')
             ->orderBy('a.publieLe', 'DESC')
             ->setParameters([
-                'rubrique1'=> $rubrique1,
-                'rubrique2' =>$rubrique2,
+                'rubrique1'=> '%'.$rubrique1."%",
+                'rubrique2' =>'%'.$rubrique2."%",
                 'valid' => true,
                 'slide' => false
             ])
