@@ -117,3 +117,22 @@
     }
   }
 }
+
+
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+  .video-play-icon i{
+    font-size: 3rem;
+  }
+
+  .video-slider-refer li{
+    max-width: 170px;
+  }
+  .carousel-item img{
+    width: 100%;
+    height: auto;
+  }
+
+  .video-net-principal img {
+    min-width: 500px
+  }
+}
