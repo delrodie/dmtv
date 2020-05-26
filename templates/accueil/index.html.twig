@@ -152,9 +152,9 @@
 {% block navbar %}
     <div class="nav-header">
         <div class="container">
-            <div class="row menu-bar">
+            <div class="row menu-bar navbar sticky-top fixed-top" id="menuNavbar">
                 <div class="col col-sm-2 col-md-3">
-                    <img src="assets/images/logo-tv.png" alt="" width="70"  class="float-sm-left">
+                    <a href="#"><img src="{{ absolute_url(asset('assets/images/logo-tv.png')) }}" alt="" width="70"  class="float-sm-left"></a>
                 </div>
                 <div class="col-9 d-none d-md-block d-sm-none">
                     <nav class="nav nav-pills nav-justified text-center menu-item-list">
@@ -247,5 +247,20 @@
             e.preventDefault()
             $(this).tab('show')
         })
+    </script>
+    <script>
+        window.onscroll = function() {myFunction()};
+
+        //var navbar = document.getElementsByName("nav-header");
+        var navbar = document.getElementById("menuNavbar");
+        var sticky = navbar.offsetTop;
+
+        function myFunction() {
+            if (window.pageYOffset >= sticky) {
+                navbar.classList.add("sticky")
+            } else {
+                navbar.classList.remove("sticky");
+            }
+        }
     </script>
 {% endblock %}

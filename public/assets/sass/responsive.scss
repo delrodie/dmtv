@@ -30,6 +30,7 @@
   }
   .video-slider-refer li{
     max-width: 85px;
+    padding: 0 1px;
   }
 
   .video-net-box .video-net-content{padding:5px;margin-bottom:5px;bottom:0;z-index:1}
@@ -47,6 +48,7 @@
 
   .video-slider-refer li{
     max-width: 120px;
+
   }
   .carousel-item img{
     width: 100%;
@@ -120,8 +122,12 @@
     top: -90px;
     position: relative;
 
+    li{
+      padding: 1px;
+    }
+
     img{
-      border: solid 7px #ffffff;
+      border: solid 2px #ffffff;
     }
   }
 }
@@ -149,21 +155,34 @@
     top: -100px;
     position: relative;
 
+    li{
+      padding: 2px;
+    }
+
     img{
-      border: solid 7px #ffffff;
+      border: solid 2px #ffffff;
     }
   }
 }
 
 @media only screen and (min-width: 1025px) {
+  .sticky{
+    width: 74%;
+    left: 13%;
+  }
 
   .video-slider-refer{
     z-index: 1;
-    top: -200px;
+    top: -150px;
     position: relative;
 
+    li{
+      max-width: 250px;
+      padding: 2px;
+    }
+
     img{
-      border: solid 7px #ffffff;
+      border: solid 2px #ffffff;
     }
   }
 }

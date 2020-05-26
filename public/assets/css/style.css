@@ -75,6 +75,7 @@
 
 .menu-bar {
   margin: 20px auto 5px auto;
+  position: sticky;
   /*background: #000;*/
 }
 
@@ -129,6 +130,15 @@
   margin: auto 0;
   padding-top: 15px;
   padding-bottom: 15px;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: white;
+  margin: 0;
+  border-bottom: solid 1px #eaeaea;
 }
 
 .owl-nav button {
