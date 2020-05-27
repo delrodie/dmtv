@@ -150,62 +150,7 @@
 {% endblock %}
 
 {% block navbar %}
-    <div class="nav-header">
-        <div class="container">
-            <div class="row menu-bar navbar sticky-top fixed-top" id="menuNavbar">
-                <div class="col col-sm-2 col-md-3">
-                    <a href="#"><img src="{{ absolute_url(asset('assets/images/logo-tv.png')) }}" alt="" width="70"  class="float-sm-left"></a>
-                </div>
-                <div class="col-9 d-none d-md-block d-sm-none">
-                    <nav class="nav nav-pills nav-justified text-center menu-item-list">
-                        <a href="{{ path('app_accueil') }}" class="nav-item">
-                            <div class="menu-item">Accueil</div>
-                        </a>
-                        <a href="{{ absolute_url(path('video_rubriques', {'rubrique': 'showbiz'})) }}" class="nav-item">
-                            <div class="menu-item">Showbiz</div>
-                        </a>
-                        <a href="{{ absolute_url(path('video_rubriques', {'rubrique': 'sport'})) }}" class="nav-item">
-                            <div class="menu-item">Sports</div>
-                        </a>
-                        <a href="{{ absolute_url(path('video_rubriques', {'rubrique': 'buzz'})) }}" class="nav-item">
-                            <div class="menu-item">Buzz</div>
-                        </a>
-                        <a href="{{ absolute_url(path('video_rubriques', {'rubrique': 'divers'})) }}" class="nav-item">
-                            <div class="menu-item">Divers</div>
-                        </a>
-                    </nav>
-                </div>
-                <!-- Mobile Navbar -->
-                <div class="col col-sm-6 d-md-none d-sm-block float-sm-right text-right flex-column">
-                    <div class="row justify-content-sm-end float-sm-right text-right">
-                        <a href="#" class="menu-bar text-right float-sm-right justify-content-sm-end" data-toggle="collapse" data-target="#menuVertical">
-                            <i class="fa fa-bars"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="collapse navbar-collapse" id="menuVertical">
-                    <nav class="nav flex-column menu-item-list">
-                        <a href="{{ path('app_accueil') }}" class="nav-item">
-                            <div class="menu-item">Accueil</div>
-                        </a>
-                        <a href="{{ absolute_url(path('video_rubriques', {'rubrique': 'showbiz'})) }}" class="nav-item">
-                            <div class="menu-item">Showbiz</div>
-                        </a>
-                        <a href="{{ absolute_url(path('video_rubriques', {'rubrique': 'sport'})) }}" class="nav-item">
-                            <div class="menu-item">Sports</div>
-                        </a>
-                        <a href="{{ absolute_url(path('video_rubriques', {'rubrique': 'buzz'})) }}" class="nav-item">
-                            <div class="menu-item">Buzz</div>
-                        </a>
-                        <a href="{{ absolute_url(path('video_rubriques', {'rubrique': 'divers'})) }}" class="nav-item">
-                            <div class="menu-item">Divers</div>
-                        </a>
-                    </nav>
-                </div>
-                <!-- \Mobile Navbar -->
-            </div>
-        </div>
-    </div>
+    {{ parent() }}
 {% endblock %}
 
 {% block stylesheets %}

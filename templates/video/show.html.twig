@@ -5,9 +5,6 @@
 {% block body %}
 
     <section class="video-details">
-        <div class="text-center video-logo">
-            <img src="{{ absolute_url(asset('assets/images/logo-tv.png')) }}" alt="Logo Dream Maker TV" >
-        </div>
         <div class="container bg-details pl-0 pr-0">
             <div class="row">
                 <div class="col-12">
@@ -110,7 +107,7 @@
 {% endblock %}
 
 {% block navbar %}
-    {{ include('accueil/menu.html.twig') }}
+    {{ parent()}}
 {% endblock %}
 
 {% block javascripts %}

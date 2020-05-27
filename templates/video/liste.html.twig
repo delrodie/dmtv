@@ -5,9 +5,9 @@
 {% block body %}
 
     <section class="video-details">
-        <div class="text-center video-logo">
+        <!--<div class="text-center video-logo">
             <img src="{{ absolute_url(asset('assets/images/logo-tv.png')) }}" alt="Logo Dream Maker TV" >
-        </div>
+        </div>-->
         <div class="container bg-similaires">
             <div class="row pt-60">
                 <div class="col-12">
@@ -39,10 +39,6 @@
 
 {% block bgimage %}
     style="background: url('#') no-repeat center fixed"
-{% endblock %}
-
-{% block navbar %}
-    {{ include('accueil/menu.html.twig') }}
 {% endblock %}
 
 {% block javascripts %}
