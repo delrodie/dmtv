@@ -19,6 +19,8 @@
     </div>
     {{ form_widget(form) }}
     <div class="text-right mt-4">
+        <input type="hidden" name="ancien_media250" value="{{ medium.img250 }}">
+        <input type="hidden" name="ancien_media1920" value="{{ medium.img1920 }}">
         <button class="btn btn-primary">{{ button_label|default('Enregister') }}</button>
     </div>
 {{ form_end(form) }}

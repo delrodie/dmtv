@@ -38,7 +38,7 @@
                                             <div class="card-body">
                                                 <h5 class="card-title"><a href="{{ path('article_show', {'id': article.id}) }}">{{ article.titre }}</a></h5>
                                                 <p class="card-text">
-                                                    {{ article.description|raw }}
+                                                    {{ article.description|raw|slice(0,300) }}...
                                                 </p>
                                                 <p class="card-text">
                                                     <small class="text-muted">{{ article.createdAt ? article.createdAt|date('Y-m-d H:i:s') : '' }}</small>

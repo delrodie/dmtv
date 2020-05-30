@@ -44,4 +44,21 @@ class GestionMedia
         return $newFilename;
 
     }
+
+    /**
+     * Suppression de l'ancien media sur le server
+     *
+     * @param $ancienMedia
+     * @param null $media
+     * @return bool
+     */
+    public function removeUpload($ancienMedia, $media = null)
+    {
+        if ($media === 'cover') unlink($this->mediaAlbum.'/'.$ancienMedia);
+        elseif ($media === 'img1920') unlink($this->media1920.'/'.$ancienMedia);
+        elseif ($media === 'img480') unlink($this->media480.'/'.$ancienMedia);
+        else unlink($this->media250.'/'.$ancienMedia);
+
+        return true;
+    }
 }

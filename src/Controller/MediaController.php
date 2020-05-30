@@ -106,6 +106,10 @@ class MediaController extends AbstractController
             $media250 = $form->get('img250')->getData();
             $media1920 = $form->get('img1920')->getData();
 
+            // Anciens medias
+            $ancienMedia250 = $request->get('ancien_media250');
+            $ancienMedia1920 = $request->get('ancien_media1920');
+
             // Traitement du fichier s'il a été telechargé
             if ($media250 && $media1920){
                 $file250 = $this->gestionMedia->upload($media250, 'img250');
@@ -113,6 +117,8 @@ class MediaController extends AbstractController
 
                 $medium->setImg250($file250);
                 $medium->setImg1920($file1920);
+                $this->gestionMedia->removeUpload($ancienMedia250, "img250");
+                $this->gestionMedia->removeUpload($ancienMedia1920, "img1920");
             }
             $this->getDoctrine()->getManager()->flush();
 
@@ -142,6 +148,16 @@ class MediaController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($medium);
             $entityManager->flush();
+
+            // Anciens medias
+            $ancienMedia250 = $request->get('ancien_media250');
+            $ancienMedia1920 = $request->get('ancien_media1920');
+
+            if ($ancienMedia250 && $ancienMedia1920){
+                $this->gestionMedia->removeUpload($ancienMedia250, "img250");
+                $this->gestionMedia->removeUpload($ancienMedia1920, "img1920");
+            }
+
         }
 
         return $this->redirectToRoute('media_index');

@@ -138,12 +138,14 @@ class ArticleController extends AbstractController
 
             // Gestion des fichiers
             $mediaFile = $form->get('img480')->getData();
+            $ancienMedia = $request->get('ancien_media');
 
             // Traitement du fichier s'il a été telechargé
             if ($mediaFile){
                 $media = $this->gestionMedia->upload($mediaFile, 'img480');
 
                 $article->setImg480($media);
+                $this->gestionMedia->removeUpload($ancienMedia, "img480");
             }
 
             $article->setSlug($slug);
@@ -178,6 +180,10 @@ class ArticleController extends AbstractController
             $action = $article->getTitre().' de '.$article->getAuteur();
             $entityManager->remove($article);
             $entityManager->flush();
+
+            // Suppression du media sur le server
+            $ancienMedia = $request->get('ancien_media');
+            if ($ancienMedia) $this->gestionMedia->removeUpload($ancienMedia, "img480");
 
             // Enregistrement du log
             $this->log->addLog('backendArticleDelete', $action);

@@ -53,6 +53,7 @@
     </div>
     {{ form_widget(form) }}
     <div class="form-group mt-2 mb-0">
+        <input type="hidden"name="ancien_media" value="{{ article.img480 }}">
         <div class="text-right">
             <a href="{{ path('article_index') }}" class="btn btn-secondary waves-effect m-l-5">Annuler</a>
             <button class="btn btn-primary waves-effect waves-light">{{ button_label|default('Enregistrer') }}</button>
