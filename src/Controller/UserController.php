@@ -19,7 +19,7 @@ class UserController extends AbstractController
     /**
      * @Route("/", name="user_index", methods={"GET","POST"})
      */
-    public function index(Request $request, UserRepository $userRepository): Response
+    public function index(Request $request, UserRepository $userRepository, UserPasswordEncoderInterface $userPasswordEncoder): Response
     {
 
         $user = new User();
@@ -28,6 +28,7 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $user->setPassword($userPasswordEncoder->encodePassword($user, $user->getPassword()));
             $entityManager->persist($user);
             $entityManager->flush();
 
@@ -78,12 +79,13 @@ class UserController extends AbstractController
     /**
      * @Route("/{id}/edit", name="user_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, User $user, UserRepository $userRepository): Response
+    public function edit(Request $request, User $user, UserRepository $userRepository, UserPasswordEncoderInterface $userPasswordEncoder): Response
     {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user->setPassword($userPasswordEncoder->encodePassword($user, $user->getPassword()));
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('user_index');

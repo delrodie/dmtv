@@ -27,7 +27,7 @@ class BackendController extends AbstractController
         $user = $this->getUser();
         $this->log->addLog($user, 'dashboard', $request->getClientIp());
 
-        return $this->render('backend/index.html.twig', [
+        return $this->render('backend/index_maintenance.html.twig', [
             'controller_name' => 'BackendController',
         ]);
     }
