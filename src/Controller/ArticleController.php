@@ -90,8 +90,8 @@ class ArticleController extends AbstractController
             $this->log->addLog('backendArticleSave', $action);
 
             // Si le bouton IsSlide est actif alors enregistrer le media
-            if ($article->getIsSlide()) return $this->redirectToRoute('media_new',['article'=>$article->getId()]);
-            else return $this->redirectToRoute('article_index');
+            //if ($article->getIsSlide()) return $this->redirectToRoute('media_new',['article'=>$article->getId()]);
+            return $this->redirectToRoute('article_index');
 
         }
 
