@@ -1,0 +1,212 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent ()}} {% endblock %}
+
+{% block body %}
+    <section class="tv-container">
+        <!-- Carousel -->
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+            <div class="carousel-inner">
+
+                {% for carousel in carousels|slice(0,4) %}
+                    <div class="carousel-item {% if loop.first %}active {% endif %}">
+                        <img src="{{ absolute_url(asset('uploads/1920/'~ carousel.media.img1920)) }}" class="img-fluid" alt="{{ carousel.titre }}">
+                        <div class="video-play-icon">
+                            <a href="{{ path('video_show', {'slug': carousel.slug}) }}"><i class="fa fa-play-circle"></i></a>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+
+            <ul class="nav justify-content-center video-slider-refer">
+
+                {% for carousel in carousels|slice(0,4) %}
+                    <li data-target="#myCarousel" data-slide-to="{{ loop.index - 1 }}" class="{% if loop.first %}active{% endif %}">
+                        <a href="#"><img src="{{ absolute_url(asset('uploads/250/'~ carousel.media.img250)) }}" class="img-fluid" alt="{{ carousel.titre }}"></a>
+                    </li>
+                {% endfor %}
+            </ul>
+
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="video-bloc col-12 col-sm-12 col-md-8 col-lg-8">
+                    <div class="row">
+                        {% for article in articles|slice(0,4) %}
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                <div class="video-box">
+                                    <img src="{{ absolute_url(asset('uploads/480/'~ article.img480)) }}" class="img-thumbnail" alt="{{ article.titre }}">
+                                    <h3 class="video-title">{{ article.auteur }}: {{ article.titre }}</h3>
+                                    <div class="video-content">
+                                        <ul class="video-player-icon">
+                                            <li><a href="{{ path('video_show', {'slug': article.slug}) }}" title="voir la video"><i class="fa fa-play-circle"></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="row">
+                        <div class="col text-right dream-lien">
+                            <a href="{{ absolute_url(path('video_index')) }}" class="">&raquo; Voir toutes les videos</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="playlist-bloc col-12 col-sm-12 col-md-4 col-lg-4">
+                    <div class="playlist-box col-12 col-sm-12 col-md-12 col-lg-12 ">
+                        <span class="playlist"><span class="btn btn-info playlist-btn"> <span>►</span> Dream Playlist</span></span>
+                        <div class="row">
+                            {% for album in albums|slice(0,1) %}
+                                <div class="col-6 col-sm-6 artiste-cover-principal">
+                                    <img src="{{ asset('uploads/album/'~ album.cover) }}" class="img-fluid">
+                                </div>
+                            {% endfor %}
+                            <div class="col-6 col-sm-6 artiste-cover">
+                                <div class="row bb">
+                                    {% for album in albums|slice(1,2) %}
+                                        <div class="col-md-12 col-sm-12">
+                                            <img src="{{ asset('uploads/album/'~ album.cover) }}" class="img-fluid" >
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-tab col-12 col-sm-12 col-md-12 col-lg-12">
+                        <ul class="nav nav-tabs" id="DreamPlaylist" role="playlist">
+                            <li class="nav-item active">
+                                <a href="#clip" class="nav-link" id="clip-tab" data-toggle="tab" role="tab" aria-controls="clip" aria-selected="true">Clips</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#album" class="nav-link" id="album-tab" data-toggle="tab" role="tab" aria-controls="albums" aria-selected="false">Albums</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="DreamPlaylistContent">
+                            <div class="tab-pane fade show active" id="clip" role="tabpanel" aria-labelledby="clip-tab">
+                                <ul>
+                                    {% for playlist in playlists|slice(0,10) %}
+                                        <li><a href="{{ path('video_show', {'slug': playlist.slug}) }}">{{ playlist.titre }}</a> <span><div class="text-bleu">{{playlist.auteur}}</div></span></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <div class="tab-pane fade show"id="album" role="tabpanel" aria-labelledby="album-tab">
+                                <ul class="album-list">
+                                    {% for album in albums|slice(0,4) %}
+                                        <li>
+                                            <a href="{{ album.lien}}" target="_blank"><img src="{{ asset('uploads/album/'~ album.cover) }}" alt="" width="75" height="75">
+                                            {{ album.auteur }}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid video-net">
+            <div class="row">
+                <div class="col-12 title">
+                    <h3>Vu sur le net</h3>
+                </div>
+            </div>
+            <div class="row video-net-box-section">
+                {% for diver in divers|slice(0,1) %}
+                    <div class="col-12 col-md-6">
+                        <div class="video-net-box video-net-principal">
+                            <img src="{{ absolute_url(asset('uploads/480/'~ diver.img480)) }}" alt="{{ diver.auteur }}" class="img-fluid">
+                            <div class="video-net-content">
+                                <span class="post">{{ diver.titre }}</span>
+                                <ul class="video-player-icon">
+                                    <li><a href="{{ path('video_show', {'slug': diver.slug}) }}"><i class="fa fa-play-circle"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="col-12 col-md-6">
+                    <div class="row ">
+                        {% for diver in divers|slice(1,4) %}
+                            <div class="col-6">
+                                <div class="video-net-box">
+                                    <img src="{{ absolute_url(asset('uploads/480/'~ diver.img480)) }}" alt="{{ diver.auteur }}" class="img-fluid">
+                                    <div class="video-net-content">
+                                        <span class="post">{{ diver.titre }}</span>
+                                        <ul class="video-player-icon">
+                                            <li><a href="{{ path('video_show', {'slug': diver.slug}) }}"><i class="fa fa-play-circle"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block navbar %}
+    {{ parent() }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('assets/vendor/OwlCarousel/assets/owl.carousel.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/OwlCarousel/assets/owl.theme.default.min.css') }}">
+    <link rel="stylesheet" href="{{ absolute_url(asset('assets/css/slider.css')) }}">
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('assets/vendor/OwlCarousel/owl.carousel.js') }}"></script>
+    <script>
+
+        // Carousel
+        $(document).ready( function() {
+            $('#myCarousel').carousel({
+                interval:   4000
+            });
+
+            var clickEvent = false;
+            $('#myCarousel').on('click', '.nav a', function() {
+                clickEvent = true;
+                $('.nav li').removeClass('active');
+                $(this).parent().addClass('active');
+            }).on('slid.bs.carousel', function(e) {
+                if(!clickEvent) {
+                    var count = $('.nav').children().length -1;
+                    var current = $('.nav li.active');
+                    current.removeClass('active').next().addClass('active');
+                    var id = parseInt(current.data('slide-to'));
+                    if(count == id) {
+                        $('.nav li').first().addClass('active');
+                    }
+                }
+                clickEvent = false;
+            });
+        });
+        //tabs
+        $('#DreamPlaylist a').on('click', function (e) {
+            e.preventDefault()
+            $(this).tab('show')
+        })
+    </script>
+    <script>
+        window.onscroll = function() {myFunction()};
+
+        //var navbar = document.getElementsByName("nav-header");
+        var navbar = document.getElementById("menuNavbar");
+        var sticky = navbar.offsetTop;
+
+        function myFunction() {
+            if (window.pageYOffset >= sticky) {
+                navbar.classList.add("sticky")
+            } else {
+                navbar.classList.remove("sticky");
+            }
+        }
+    </script>
+{% endblock %}

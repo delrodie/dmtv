@@ -39,7 +39,7 @@ class AccueilController extends AbstractController
             return $articleRepository->findCarousel();
         });
         */
-        $carousels = $articleRepository->findCarousel();
+        $carousels = $articleRepository->findCarousel(); //dd($carousels);
 
         // Mise en cache des videos
         /*

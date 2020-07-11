@@ -5,32 +5,161 @@
 {% block body %}
     <section class="tv-container">
         <!-- Carousel -->
-        <div id="myCarousel" class="carousel slide" data-ride="carousel">
-
-            <div class="carousel-inner">
-
-                {% for carousel in carousels|slice(0,4) %}
-                    <div class="carousel-item {% if loop.first %}active {% endif %}">
-                        <img src="{{ absolute_url(asset('uploads/1920/'~ carousel.media.img1920)) }}" class="img-fluid" alt="{{ carousel.titre }}">
-                        <div class="video-play-icon">
-                            <a href="{{ path('video_show', {'slug': carousel.slug}) }}"><i class="fa fa-play-circle"></i></a>
-                        </div>
-                    </div>
-                {% endfor %}
-
-            </div>
-
-            <ul class="nav justify-content-center video-slider-refer">
-
-                {% for carousel in carousels|slice(0,4) %}
-                    <li data-target="#myCarousel" data-slide-to="{{ loop.index - 1 }}" class="{% if loop.first %}active{% endif %}">
-                        <a href="#"><img src="{{ absolute_url(asset('uploads/250/'~ carousel.media.img250)) }}" class="img-fluid" alt="{{ carousel.titre }}"></a>
-                    </li>
-                {% endfor %}
-            </ul>
-
-        </div>
         <div class="container">
+            <div class="row">
+                <div class="col-12 pb-5">
+                    <section class="row">
+                        <div class="col-12 col-md-6 pb-0 pb-md-3 pt-2 pr-md-1">
+                            <div id="featured" class="carousel slide carousel" data-ride="carousel">
+                                <ol class="carousel-indicators top-indicator">
+                                    <li data-target="#featured" data-slide-to="0" class="active"></li>
+                                    <li data-target="#featured" data-slide-to="1"></li>
+                                    <li data-target="#featured" data-slide-to="2"></li>
+                                    <li data-target="#featured" data-slide-to="3"></li>
+                                </ol>
+
+                                <div class="carousel-inner">
+
+                                    {% for carousel in carousels|slice(0,4) %}
+                                        <div class="carousel-item  {% if loop.first %}active {% endif %}">
+                                            <div class="card border-0 rounded-0 text-light overflow zoom">
+                                                <div class="position-relative">
+                                                    <div class="ratio_left-cover-1 image-wrapper">
+                                                        <a href="{{ absolute_url(path('video_show', {'slug': carousel.slug})) }}">
+                                                            <img class="img-fluid w-100"
+                                                                 src="{{ absolute_url(asset('uploads/480/'~ carousel.img480)) }}"
+                                                                 alt="{{ carousel.titre }}">
+                                                        </a>
+                                                    </div>
+                                                    <div class="position-absolute p-2 p-lg-3 b-0 w-100 bg-shadow">
+                                                        <a class="p-1 badge badge-danger rounded-0" href="#">{{ carousel.auteur }}</a>
+                                                        <a href="{{ absolute_url(path('video_show', {'slug': carousel.slug})) }}">
+                                                            <h4 class="h5 post-title text-white my-1">{{ carousel.titre }}</h4>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            <a class="carousel-control-prev" href="#featured" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Précédent</span>
+                            </a>
+                            <a class="carousel-control-next" href="#featured" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Suivant</span>
+                            </a>
+                        </div>
+
+                        <div class="col-12 col-md-6 pt-2 pl-md-1 mb-3 mb-lg-4">
+                            <div class="row">
+                                {% for playlist in playlists|slice(0,4) %}
+                                    {% if loop.first %}
+                                        <div class="col-6 pb-1 pt-0 pr-1">
+                                            <div class="card border-0 rounded-0 text-white overflow zoom">
+                                                <div class="position-relative">
+                                                    <div class="ratio_right-cover-2 image-wrapper">
+                                                        <a href="{{ absolute_url(path('video_show', {'slug': playlist.slug})) }}">
+                                                            <img class="img-fluid"
+                                                                 src="{{ absolute_url(asset('uploads/480/'~ playlist.img480)) }}"
+                                                                 alt="{{ playlist.titre }}">
+                                                        </a>
+                                                    </div>
+                                                    <div class="position-absolute p-2 p-lg-3 b-0 w-100 bg-shadow">
+
+                                                        <a class="p-1 badge badge-danger rounded-0" href="{{ absolute_url(path('video_show', {'slug': playlist.slug})) }}">{{ playlist.auteur }}</a>
+
+                                                        <a href="{{ absolute_url(path('video_show', {'slug': playlist.slug})) }}">
+                                                            <h5 class="h6 text-white my-1">{{ playlist.titre }}</h5>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% elseif loop.index == 2 %}
+                                        <div class="col-6 pb-1 pl-1 pt-0">
+                                            <div class="card border-0 rounded-0 text-white overflow zoom">
+                                                <div class="position-relative">
+                                                    <div class="ratio_right-cover-2 image-wrapper">
+                                                        <a href="{{ absolute_url(path('video_show', {'slug': playlist.slug})) }}">
+                                                            <img class="img-fluid"
+                                                                 src="{{ absolute_url(asset('uploads/480/'~ playlist.img480)) }}"
+                                                                 alt="{{ playlist.titre }}">
+                                                        </a>
+                                                    </div>
+                                                    <div class="position-absolute p-2 p-lg-3 b-0 w-100 bg-shadow">
+
+                                                        <a class="p-1 badge badge-danger rounded-0" href="{{ absolute_url(path('video_show', {'slug': playlist.slug})) }}">{{ playlist.auteur }}</a>
+
+                                                        <a href="{{ absolute_url(path('video_show', {'slug': playlist.slug})) }}">
+                                                            <h5 class="h6 text-white my-1">{{ playlist.titre }}</h5>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% elseif loop.index==3 %}
+                                        <div class="col-6 pb-1 pr-1 pt-1">
+                                            <div class="card border-0 rounded-0 text-white overflow zoom">
+                                                <div class="position-relative">
+                                                    <div class="ratio_right-cover-2 image-wrapper">
+                                                        <a href="{{ absolute_url(path('video_show', {'slug': playlist.slug})) }}">
+                                                            <img class="img-fluid"
+                                                                 src="{{ absolute_url(asset('uploads/480/'~ playlist.img480)) }}"
+                                                                 alt="{{ playlist.titre }}">
+                                                        </a>
+                                                    </div>
+                                                    <div class="position-absolute p-2 p-lg-3 b-0 w-100 bg-shadow">
+
+                                                        <a class="p-1 badge badge-danger rounded-0" href="{{ absolute_url(path('video_show', {'slug': playlist.slug})) }}">{{ playlist.auteur }}</a>
+
+                                                        <a href="{{ absolute_url(path('video_show', {'slug': playlist.slug})) }}">
+                                                            <h5 class="h6 text-white my-1">{{ playlist.titre }}</h5>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% else %}
+                                        <div class="col-6 pb-1 pl-1 pt-1">
+                                            <div class="card border-0 rounded-0 text-white overflow zoom">
+                                                <div class="position-relative">
+                                                    <div class="ratio_right-cover-2 image-wrapper">
+                                                        <a href="{{ absolute_url(path('video_show', {'slug': playlist.slug})) }}">
+                                                            <img class="img-fluid"
+                                                                 src="{{ absolute_url(asset('uploads/480/'~ playlist.img480)) }}"
+                                                                 alt="{{ playlist.titre }}">
+                                                        </a>
+                                                    </div>
+                                                    <div class="position-absolute p-2 p-lg-3 b-0 w-100 bg-shadow">
+
+                                                        <a class="p-1 badge badge-danger rounded-0" href="{{ absolute_url(path('video_show', {'slug': playlist.slug})) }}">{{ playlist.auteur }}</a>
+
+                                                        <a href="{{ absolute_url(path('video_show', {'slug': playlist.slug})) }}">
+                                                            <h5 class="h6 text-white my-1">{{ playlist.titre }}</h5>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+        <div class="container mb-5">
+            <a href="http://yodesiro.dreammakerci.com" target="_blank" title="Cliquez pour commander votre CD">
+                <img src="{{ absolute_url(asset('assets/images/yes.png')) }}" class="img-fluid" alt="Nouvel album de YODE & SIRO">
+            </a>
+        </div>
+        <div class="container mt-2">
             <div class="row">
                 <div class="video-bloc col-12 col-sm-12 col-md-8 col-lg-8">
                     <div class="row">
@@ -157,6 +286,7 @@
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('assets/vendor/OwlCarousel/assets/owl.carousel.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendor/OwlCarousel/assets/owl.theme.default.min.css') }}">
+    <link rel="stylesheet" href="{{ absolute_url(asset('assets/css/slider.css')) }}">
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
